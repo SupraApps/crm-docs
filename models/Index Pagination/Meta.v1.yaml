@@ -1,0 +1,28 @@
+title: Meta
+type: object
+x-tags:
+  - Pagination
+properties:
+  current_page:
+    type: string
+  from:
+    type: string
+  last_page:
+    type: string
+  path:
+    type: string
+  per_page:
+    type: string
+  to:
+    type: string
+  total:
+    type: string
+x-examples:
+  Example:
+    current_page: 1
+    from: 1
+    last_page: 2
+    path: 'http://crm.test/api/v1/orders'
+    per_page: 15
+    to: 15
+    total: 30

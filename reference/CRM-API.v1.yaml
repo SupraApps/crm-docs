@@ -1,0 +1,3398 @@
+openapi: 3.0.0
+tags:
+  - name: CRM
+  - name: Customers
+  - name: Orders
+  - name: Payments
+info:
+  title: CRM-API
+  version: '1.0'
+  description: CRM API
+  contact:
+    name: Sean
+    email: oceanapplications@gmail.com
+  license:
+    name: MIT
+servers:
+  - url: 'http://crm.test/api/v1'
+paths:
+  '/customers/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Get One Customer
+      tags:
+        - Customers
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: ../models/Customer.v1.yaml
+              examples:
+                Example:
+                  value:
+                    data:
+                      id: 1
+                      company_id: 1
+                      first_name: Eugene
+                      last_name: Gulgowski
+                      email: barrett47@example.org
+                      phone: null
+                      primary_billing_address_id: 2
+                      primary_shipping_address_id: 3
+                      primary_payment_method_id: 1
+                      created_at: '2020-06-02T22:36:45.000000Z'
+                      updated_at: '2020-06-02T22:36:46.000000Z'
+      operationId: get-customers-id
+      parameters: []
+      description: Get single customer
+  /customers:
+    get:
+      summary: Get Customers Index
+      tags:
+        - Customers
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: ../models/Customer.v1.yaml
+      operationId: get-customers
+      parameters:
+        - schema:
+            type: string
+          in: header
+          description: ''
+      description: Get single customer
+  /orders:
+    get:
+      summary: Get orders index
+      tags:
+        - Orders
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: ../models/Order.v1.yaml
+                  links:
+                    $ref: ../models/Index Pagination/Links.v1.yaml
+                  meta:
+                    $ref: ../models/Index Pagination/Meta.v1.yaml
+              examples:
+                Example:
+                  value:
+                    data:
+                      - id: 1
+                        status: pending
+                        customer_id: 2
+                        company_id: 1
+                        billing_address_id: 5
+                        shipping_address_id: 8
+                        payment_method_id: 2
+                        discount_amount: '0.00'
+                        total: '3032.07'
+                        products:
+                          - id: 1
+                            company_id: 1
+                            name: Non nemo rem aliquid.
+                            price: '413.61'
+                            sku: Sint odio.
+                            taxable: 1
+                            shippable: 1
+                            categories: '["ut", "beatae", "error"]'
+                            weight: 309
+                            height: 832
+                            width: 1939
+                            depth: 1866
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 3
+                            billing_type: once
+                            billing_schedule: '0'
+                          - id: 2
+                            company_id: 1
+                            name: Ad nisi voluptas a quis.
+                            price: '158.38'
+                            sku: Quia est.
+                            taxable: 1
+                            shippable: 1
+                            categories: '["architecto", "veniam", "neque"]'
+                            weight: 877
+                            height: 1731
+                            width: 530
+                            depth: 1300
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 3
+                            billing_type: once
+                            billing_schedule: '0'
+                          - id: 3
+                            company_id: 1
+                            name: Qui quia ea error.
+                            price: '263.22'
+                            sku: Ea.
+                            taxable: 0
+                            shippable: 1
+                            categories: '["numquam", "qui", "voluptatem"]'
+                            weight: 1326
+                            height: 1775
+                            width: 466
+                            depth: 12
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 5
+                            billing_type: once
+                            billing_schedule: '0'
+                        tax: '0.00'
+                        payments:
+                          - id: 1
+                            company_id: 1
+                            order_id: 1
+                            payment_method_id: 2
+                            payment_processor_id: 1
+                            status: pending
+                            billing_address:
+                              - id: 5
+                                city: North Ivory
+                                country: US
+                                company_id: 1
+                                created_at: '2020-06-02T22:36:46.000000Z'
+                                updated_at: '2020-06-02T22:36:46.000000Z'
+                                admin_area1: KY
+                                admin_area2: null
+                                customer_id: 2
+                                postal_code: '80418'
+                                address_line1: 23347 Anderson Way Apt. 408
+                                address_line2: Suite 673
+                                address_line3: null
+                            amount: '3032.07'
+                            refunded_amount: '0.00'
+                            deleted_at: null
+                            created_at: '2020-06-02T22:36:46.000000Z'
+                            updated_at: '2020-06-02T22:36:46.000000Z'
+                        shipments:
+                          - id: 1
+                            order_id: 1
+                            shipment_processor_id: 1
+                            status: exception
+                            line_items:
+                              - id: 1
+                                sku: Sint odio.
+                                name: Non nemo rem aliquid.
+                                depth: 1866
+                                pivot:
+                                  order_id: 1
+                                  quantity: 3
+                                  product_id: 1
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '413.61'
+                                width: 1939
+                                height: 832
+                                weight: 309
+                                taxable: true
+                                shippable: true
+                                categories:
+                                  - ut
+                                  - beatae
+                                  - error
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                              - id: 2
+                                sku: Quia est.
+                                name: Ad nisi voluptas a quis.
+                                depth: 1300
+                                pivot:
+                                  order_id: 1
+                                  quantity: 3
+                                  product_id: 2
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '158.38'
+                                width: 530
+                                height: 1731
+                                weight: 877
+                                taxable: true
+                                shippable: true
+                                categories:
+                                  - architecto
+                                  - veniam
+                                  - neque
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                              - id: 3
+                                sku: Ea.
+                                name: Qui quia ea error.
+                                depth: 12
+                                pivot:
+                                  order_id: 1
+                                  quantity: 5
+                                  product_id: 3
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '263.22'
+                                width: 466
+                                height: 1775
+                                weight: 1326
+                                taxable: false
+                                shippable: true
+                                categories:
+                                  - numquam
+                                  - qui
+                                  - voluptatem
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                            carrier: null
+                            shipping_service: null
+                            tracking_number: '60563382194'
+                            destination:
+                              - id: 8
+                                city: North Gloria
+                                country: US
+                                company_id: 1
+                                created_at: '2020-06-02T22:36:46.000000Z'
+                                updated_at: '2020-06-02T22:36:46.000000Z'
+                                admin_area1: ME
+                                admin_area2: null
+                                customer_id: 2
+                                postal_code: '89937'
+                                address_line1: 52800 Twila Trace
+                                address_line2: Suite 468
+                                address_line3: null
+                            shippable_id: 0
+                            shippable_type: 'Boxc::class'
+                            deleted_at: null
+                            created_at: '2020-06-02T22:36:46.000000Z'
+                            updated_at: '2020-06-02T22:36:46.000000Z'
+                        updated_at: '2020-06-02T22:36:46.000000Z'
+                        created_at: '2020-06-02T22:36:46.000000Z'
+                      - id: 2
+                        status: pending
+                        customer_id: 9
+                        company_id: 1
+                        billing_address_id: 35
+                        shipping_address_id: 35
+                        payment_method_id: 9
+                        discount_amount: '0.00'
+                        total: '2242.41'
+                        products:
+                          - id: 1
+                            company_id: 1
+                            name: Non nemo rem aliquid.
+                            price: '413.61'
+                            sku: Sint odio.
+                            taxable: 1
+                            shippable: 1
+                            categories: '["ut", "beatae", "error"]'
+                            weight: 309
+                            height: 832
+                            width: 1939
+                            depth: 1866
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 3
+                            billing_type: once
+                            billing_schedule: '0'
+                          - id: 2
+                            company_id: 1
+                            name: Ad nisi voluptas a quis.
+                            price: '158.38'
+                            sku: Quia est.
+                            taxable: 1
+                            shippable: 1
+                            categories: '["architecto", "veniam", "neque"]'
+                            weight: 877
+                            height: 1731
+                            width: 530
+                            depth: 1300
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 3
+                            billing_type: once
+                            billing_schedule: '0'
+                          - id: 3
+                            company_id: 1
+                            name: Qui quia ea error.
+                            price: '263.22'
+                            sku: Ea.
+                            taxable: 0
+                            shippable: 1
+                            categories: '["numquam", "qui", "voluptatem"]'
+                            weight: 1326
+                            height: 1775
+                            width: 466
+                            depth: 12
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 2
+                            billing_type: once
+                            billing_schedule: '0'
+                        tax: '0.00'
+                        payments:
+                          - id: 2
+                            company_id: 1
+                            order_id: 2
+                            payment_method_id: 9
+                            payment_processor_id: 1
+                            status: pending
+                            billing_address:
+                              - id: 35
+                                city: Emmettmouth
+                                country: US
+                                company_id: 1
+                                created_at: '2020-06-02T22:36:46.000000Z'
+                                updated_at: '2020-06-02T22:36:46.000000Z'
+                                admin_area1: NE
+                                admin_area2: null
+                                customer_id: 9
+                                postal_code: '60008'
+                                address_line1: 69109 Kihn Islands
+                                address_line2: Apt. 470
+                                address_line3: null
+                            amount: '2242.41'
+                            refunded_amount: '0.00'
+                            deleted_at: null
+                            created_at: '2020-06-02T22:36:46.000000Z'
+                            updated_at: '2020-06-02T22:36:46.000000Z'
+                        shipments:
+                          - id: 2
+                            order_id: 2
+                            shipment_processor_id: 1
+                            status: delivered
+                            line_items:
+                              - id: 1
+                                sku: Sint odio.
+                                name: Non nemo rem aliquid.
+                                depth: 1866
+                                pivot:
+                                  order_id: 2
+                                  quantity: 3
+                                  product_id: 1
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '413.61'
+                                width: 1939
+                                height: 832
+                                weight: 309
+                                taxable: true
+                                shippable: true
+                                categories:
+                                  - ut
+                                  - beatae
+                                  - error
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                              - id: 2
+                                sku: Quia est.
+                                name: Ad nisi voluptas a quis.
+                                depth: 1300
+                                pivot:
+                                  order_id: 2
+                                  quantity: 3
+                                  product_id: 2
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '158.38'
+                                width: 530
+                                height: 1731
+                                weight: 877
+                                taxable: true
+                                shippable: true
+                                categories:
+                                  - architecto
+                                  - veniam
+                                  - neque
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                              - id: 3
+                                sku: Ea.
+                                name: Qui quia ea error.
+                                depth: 12
+                                pivot:
+                                  order_id: 2
+                                  quantity: 2
+                                  product_id: 3
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '263.22'
+                                width: 466
+                                height: 1775
+                                weight: 1326
+                                taxable: false
+                                shippable: true
+                                categories:
+                                  - numquam
+                                  - qui
+                                  - voluptatem
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                            carrier: null
+                            shipping_service: null
+                            tracking_number: '14100223836'
+                            destination:
+                              - id: 35
+                                city: Emmettmouth
+                                country: US
+                                company_id: 1
+                                created_at: '2020-06-02T22:36:46.000000Z'
+                                updated_at: '2020-06-02T22:36:46.000000Z'
+                                admin_area1: NE
+                                admin_area2: null
+                                customer_id: 9
+                                postal_code: '60008'
+                                address_line1: 69109 Kihn Islands
+                                address_line2: Apt. 470
+                                address_line3: null
+                            shippable_id: 0
+                            shippable_type: 'Boxc::class'
+                            deleted_at: null
+                            created_at: '2020-06-02T22:36:46.000000Z'
+                            updated_at: '2020-06-02T22:36:46.000000Z'
+                        updated_at: '2020-06-02T22:36:46.000000Z'
+                        created_at: '2020-06-02T22:36:46.000000Z'
+                      - id: 3
+                        status: pending
+                        customer_id: 2
+                        company_id: 1
+                        billing_address_id: 5
+                        shipping_address_id: 7
+                        payment_method_id: 2
+                        discount_amount: '0.00'
+                        total: '1520.03'
+                        products:
+                          - id: 1
+                            company_id: 1
+                            name: Non nemo rem aliquid.
+                            price: '413.61'
+                            sku: Sint odio.
+                            taxable: 1
+                            shippable: 1
+                            categories: '["ut", "beatae", "error"]'
+                            weight: 309
+                            height: 832
+                            width: 1939
+                            depth: 1866
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 1
+                            billing_type: once
+                            billing_schedule: '0'
+                          - id: 2
+                            company_id: 1
+                            name: Ad nisi voluptas a quis.
+                            price: '158.38'
+                            sku: Quia est.
+                            taxable: 1
+                            shippable: 1
+                            categories: '["architecto", "veniam", "neque"]'
+                            weight: 877
+                            height: 1731
+                            width: 530
+                            depth: 1300
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 2
+                            billing_type: once
+                            billing_schedule: '0'
+                          - id: 3
+                            company_id: 1
+                            name: Qui quia ea error.
+                            price: '263.22'
+                            sku: Ea.
+                            taxable: 0
+                            shippable: 1
+                            categories: '["numquam", "qui", "voluptatem"]'
+                            weight: 1326
+                            height: 1775
+                            width: 466
+                            depth: 12
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 3
+                            billing_type: once
+                            billing_schedule: '0'
+                        tax: '0.00'
+                        payments:
+                          - id: 3
+                            company_id: 1
+                            order_id: 3
+                            payment_method_id: 2
+                            payment_processor_id: 1
+                            status: pending
+                            billing_address:
+                              - id: 5
+                                city: North Ivory
+                                country: US
+                                company_id: 1
+                                created_at: '2020-06-02T22:36:46.000000Z'
+                                updated_at: '2020-06-02T22:36:46.000000Z'
+                                admin_area1: KY
+                                admin_area2: null
+                                customer_id: 2
+                                postal_code: '80418'
+                                address_line1: 23347 Anderson Way Apt. 408
+                                address_line2: Suite 673
+                                address_line3: null
+                            amount: '1520.03'
+                            refunded_amount: '0.00'
+                            deleted_at: null
+                            created_at: '2020-06-02T22:36:46.000000Z'
+                            updated_at: '2020-06-02T22:36:46.000000Z'
+                        shipments:
+                          - id: 3
+                            order_id: 3
+                            shipment_processor_id: 1
+                            status: returned_by_customer
+                            line_items:
+                              - id: 1
+                                sku: Sint odio.
+                                name: Non nemo rem aliquid.
+                                depth: 1866
+                                pivot:
+                                  order_id: 3
+                                  quantity: 1
+                                  product_id: 1
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '413.61'
+                                width: 1939
+                                height: 832
+                                weight: 309
+                                taxable: true
+                                shippable: true
+                                categories:
+                                  - ut
+                                  - beatae
+                                  - error
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                              - id: 2
+                                sku: Quia est.
+                                name: Ad nisi voluptas a quis.
+                                depth: 1300
+                                pivot:
+                                  order_id: 3
+                                  quantity: 2
+                                  product_id: 2
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '158.38'
+                                width: 530
+                                height: 1731
+                                weight: 877
+                                taxable: true
+                                shippable: true
+                                categories:
+                                  - architecto
+                                  - veniam
+                                  - neque
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                              - id: 3
+                                sku: Ea.
+                                name: Qui quia ea error.
+                                depth: 12
+                                pivot:
+                                  order_id: 3
+                                  quantity: 3
+                                  product_id: 3
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '263.22'
+                                width: 466
+                                height: 1775
+                                weight: 1326
+                                taxable: false
+                                shippable: true
+                                categories:
+                                  - numquam
+                                  - qui
+                                  - voluptatem
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                            carrier: null
+                            shipping_service: null
+                            tracking_number: '62504718934'
+                            destination:
+                              - id: 7
+                                city: Enricoshire
+                                country: US
+                                company_id: 1
+                                created_at: '2020-06-02T22:36:46.000000Z'
+                                updated_at: '2020-06-02T22:36:46.000000Z'
+                                admin_area1: TX
+                                admin_area2: null
+                                customer_id: 2
+                                postal_code: 71119-8679
+                                address_line1: 71685 Kunze Junctions
+                                address_line2: Apt. 703
+                                address_line3: null
+                            shippable_id: 0
+                            shippable_type: 'Boxc::class'
+                            deleted_at: null
+                            created_at: '2020-06-02T22:36:46.000000Z'
+                            updated_at: '2020-06-02T22:36:46.000000Z'
+                        updated_at: '2020-06-02T22:36:46.000000Z'
+                        created_at: '2020-06-02T22:36:46.000000Z'
+                      - id: 4
+                        status: pending
+                        customer_id: 6
+                        company_id: 1
+                        billing_address_id: 23
+                        shipping_address_id: 22
+                        payment_method_id: 6
+                        discount_amount: '0.00'
+                        total: '2339.26'
+                        products:
+                          - id: 1
+                            company_id: 1
+                            name: Non nemo rem aliquid.
+                            price: '413.61'
+                            sku: Sint odio.
+                            taxable: 1
+                            shippable: 1
+                            categories: '["ut", "beatae", "error"]'
+                            weight: 309
+                            height: 832
+                            width: 1939
+                            depth: 1866
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 4
+                            billing_type: once
+                            billing_schedule: '0'
+                          - id: 2
+                            company_id: 1
+                            name: Ad nisi voluptas a quis.
+                            price: '158.38'
+                            sku: Quia est.
+                            taxable: 1
+                            shippable: 1
+                            categories: '["architecto", "veniam", "neque"]'
+                            weight: 877
+                            height: 1731
+                            width: 530
+                            depth: 1300
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 1
+                            billing_type: once
+                            billing_schedule: '0'
+                          - id: 3
+                            company_id: 1
+                            name: Qui quia ea error.
+                            price: '263.22'
+                            sku: Ea.
+                            taxable: 0
+                            shippable: 1
+                            categories: '["numquam", "qui", "voluptatem"]'
+                            weight: 1326
+                            height: 1775
+                            width: 466
+                            depth: 12
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 2
+                            billing_type: once
+                            billing_schedule: '0'
+                        tax: '0.00'
+                        payments:
+                          - id: 4
+                            company_id: 1
+                            order_id: 4
+                            payment_method_id: 6
+                            payment_processor_id: 1
+                            status: pending
+                            billing_address:
+                              - id: 23
+                                city: Gulgowskichester
+                                country: US
+                                company_id: 1
+                                created_at: '2020-06-02T22:36:46.000000Z'
+                                updated_at: '2020-06-02T22:36:46.000000Z'
+                                admin_area1: WV
+                                admin_area2: null
+                                customer_id: 6
+                                postal_code: 99397-1774
+                                address_line1: 3548 Hermina Knoll
+                                address_line2: Apt. 970
+                                address_line3: null
+                            amount: '2339.26'
+                            refunded_amount: '0.00'
+                            deleted_at: null
+                            created_at: '2020-06-02T22:36:46.000000Z'
+                            updated_at: '2020-06-02T22:36:46.000000Z'
+                        shipments:
+                          - id: 4
+                            order_id: 4
+                            shipment_processor_id: 1
+                            status: stalled
+                            line_items:
+                              - id: 1
+                                sku: Sint odio.
+                                name: Non nemo rem aliquid.
+                                depth: 1866
+                                pivot:
+                                  order_id: 4
+                                  quantity: 4
+                                  product_id: 1
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '413.61'
+                                width: 1939
+                                height: 832
+                                weight: 309
+                                taxable: true
+                                shippable: true
+                                categories:
+                                  - ut
+                                  - beatae
+                                  - error
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                              - id: 2
+                                sku: Quia est.
+                                name: Ad nisi voluptas a quis.
+                                depth: 1300
+                                pivot:
+                                  order_id: 4
+                                  quantity: 1
+                                  product_id: 2
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '158.38'
+                                width: 530
+                                height: 1731
+                                weight: 877
+                                taxable: true
+                                shippable: true
+                                categories:
+                                  - architecto
+                                  - veniam
+                                  - neque
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                              - id: 3
+                                sku: Ea.
+                                name: Qui quia ea error.
+                                depth: 12
+                                pivot:
+                                  order_id: 4
+                                  quantity: 2
+                                  product_id: 3
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '263.22'
+                                width: 466
+                                height: 1775
+                                weight: 1326
+                                taxable: false
+                                shippable: true
+                                categories:
+                                  - numquam
+                                  - qui
+                                  - voluptatem
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                            carrier: null
+                            shipping_service: null
+                            tracking_number: '83963499289'
+                            destination:
+                              - id: 22
+                                city: Port Colleenfort
+                                country: US
+                                company_id: 1
+                                created_at: '2020-06-02T22:36:46.000000Z'
+                                updated_at: '2020-06-02T22:36:46.000000Z'
+                                admin_area1: MN
+                                admin_area2: null
+                                customer_id: 6
+                                postal_code: '62308'
+                                address_line1: 56837 Gleason Neck
+                                address_line2: Apt. 847
+                                address_line3: null
+                            shippable_id: 0
+                            shippable_type: 'Boxc::class'
+                            deleted_at: null
+                            created_at: '2020-06-02T22:36:46.000000Z'
+                            updated_at: '2020-06-02T22:36:46.000000Z'
+                        updated_at: '2020-06-02T22:36:46.000000Z'
+                        created_at: '2020-06-02T22:36:46.000000Z'
+                      - id: 5
+                        status: pending
+                        customer_id: 5
+                        company_id: 1
+                        billing_address_id: 17
+                        shipping_address_id: 19
+                        payment_method_id: 5
+                        discount_amount: '0.00'
+                        total: '1310.35'
+                        products:
+                          - id: 1
+                            company_id: 1
+                            name: Non nemo rem aliquid.
+                            price: '413.61'
+                            sku: Sint odio.
+                            taxable: 1
+                            shippable: 1
+                            categories: '["ut", "beatae", "error"]'
+                            weight: 309
+                            height: 832
+                            width: 1939
+                            depth: 1866
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 1
+                            billing_type: once
+                            billing_schedule: '0'
+                          - id: 2
+                            company_id: 1
+                            name: Ad nisi voluptas a quis.
+                            price: '158.38'
+                            sku: Quia est.
+                            taxable: 1
+                            shippable: 1
+                            categories: '["architecto", "veniam", "neque"]'
+                            weight: 877
+                            height: 1731
+                            width: 530
+                            depth: 1300
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 4
+                            billing_type: once
+                            billing_schedule: '0'
+                          - id: 3
+                            company_id: 1
+                            name: Qui quia ea error.
+                            price: '263.22'
+                            sku: Ea.
+                            taxable: 0
+                            shippable: 1
+                            categories: '["numquam", "qui", "voluptatem"]'
+                            weight: 1326
+                            height: 1775
+                            width: 466
+                            depth: 12
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 1
+                            billing_type: once
+                            billing_schedule: '0'
+                        tax: '0.00'
+                        payments:
+                          - id: 5
+                            company_id: 1
+                            order_id: 5
+                            payment_method_id: 5
+                            payment_processor_id: 1
+                            status: pending
+                            billing_address:
+                              - id: 17
+                                city: East Carmella
+                                country: US
+                                company_id: 1
+                                created_at: '2020-06-02T22:36:46.000000Z'
+                                updated_at: '2020-06-02T22:36:46.000000Z'
+                                admin_area1: MA
+                                admin_area2: null
+                                customer_id: 5
+                                postal_code: 55500-6370
+                                address_line1: 4149 Monserrate Ford
+                                address_line2: Apt. 685
+                                address_line3: null
+                            amount: '1310.35'
+                            refunded_amount: '0.00'
+                            deleted_at: null
+                            created_at: '2020-06-02T22:36:46.000000Z'
+                            updated_at: '2020-06-02T22:36:46.000000Z'
+                        shipments:
+                          - id: 5
+                            order_id: 5
+                            shipment_processor_id: 1
+                            status: stalled
+                            line_items:
+                              - id: 1
+                                sku: Sint odio.
+                                name: Non nemo rem aliquid.
+                                depth: 1866
+                                pivot:
+                                  order_id: 5
+                                  quantity: 1
+                                  product_id: 1
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '413.61'
+                                width: 1939
+                                height: 832
+                                weight: 309
+                                taxable: true
+                                shippable: true
+                                categories:
+                                  - ut
+                                  - beatae
+                                  - error
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                              - id: 2
+                                sku: Quia est.
+                                name: Ad nisi voluptas a quis.
+                                depth: 1300
+                                pivot:
+                                  order_id: 5
+                                  quantity: 4
+                                  product_id: 2
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '158.38'
+                                width: 530
+                                height: 1731
+                                weight: 877
+                                taxable: true
+                                shippable: true
+                                categories:
+                                  - architecto
+                                  - veniam
+                                  - neque
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                              - id: 3
+                                sku: Ea.
+                                name: Qui quia ea error.
+                                depth: 12
+                                pivot:
+                                  order_id: 5
+                                  quantity: 1
+                                  product_id: 3
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '263.22'
+                                width: 466
+                                height: 1775
+                                weight: 1326
+                                taxable: false
+                                shippable: true
+                                categories:
+                                  - numquam
+                                  - qui
+                                  - voluptatem
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                            carrier: null
+                            shipping_service: null
+                            tracking_number: '25372517980'
+                            destination:
+                              - id: 19
+                                city: West Elissa
+                                country: US
+                                company_id: 1
+                                created_at: '2020-06-02T22:36:46.000000Z'
+                                updated_at: '2020-06-02T22:36:46.000000Z'
+                                admin_area1: CT
+                                admin_area2: null
+                                customer_id: 5
+                                postal_code: '29193'
+                                address_line1: 73791 Dortha Road
+                                address_line2: Apt. 520
+                                address_line3: null
+                            shippable_id: 0
+                            shippable_type: 'Boxc::class'
+                            deleted_at: null
+                            created_at: '2020-06-02T22:36:46.000000Z'
+                            updated_at: '2020-06-02T22:36:46.000000Z'
+                        updated_at: '2020-06-02T22:36:46.000000Z'
+                        created_at: '2020-06-02T22:36:46.000000Z'
+                      - id: 6
+                        status: pending
+                        customer_id: 2
+                        company_id: 1
+                        billing_address_id: 5
+                        shipping_address_id: 5
+                        payment_method_id: 2
+                        discount_amount: '0.00'
+                        total: '1468.73'
+                        products:
+                          - id: 1
+                            company_id: 1
+                            name: Non nemo rem aliquid.
+                            price: '413.61'
+                            sku: Sint odio.
+                            taxable: 1
+                            shippable: 1
+                            categories: '["ut", "beatae", "error"]'
+                            weight: 309
+                            height: 832
+                            width: 1939
+                            depth: 1866
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 1
+                            billing_type: once
+                            billing_schedule: '0'
+                          - id: 2
+                            company_id: 1
+                            name: Ad nisi voluptas a quis.
+                            price: '158.38'
+                            sku: Quia est.
+                            taxable: 1
+                            shippable: 1
+                            categories: '["architecto", "veniam", "neque"]'
+                            weight: 877
+                            height: 1731
+                            width: 530
+                            depth: 1300
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 5
+                            billing_type: once
+                            billing_schedule: '0'
+                          - id: 3
+                            company_id: 1
+                            name: Qui quia ea error.
+                            price: '263.22'
+                            sku: Ea.
+                            taxable: 0
+                            shippable: 1
+                            categories: '["numquam", "qui", "voluptatem"]'
+                            weight: 1326
+                            height: 1775
+                            width: 466
+                            depth: 12
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 1
+                            billing_type: once
+                            billing_schedule: '0'
+                        tax: '0.00'
+                        payments:
+                          - id: 6
+                            company_id: 1
+                            order_id: 6
+                            payment_method_id: 2
+                            payment_processor_id: 1
+                            status: pending
+                            billing_address:
+                              - id: 5
+                                city: North Ivory
+                                country: US
+                                company_id: 1
+                                created_at: '2020-06-02T22:36:46.000000Z'
+                                updated_at: '2020-06-02T22:36:46.000000Z'
+                                admin_area1: KY
+                                admin_area2: null
+                                customer_id: 2
+                                postal_code: '80418'
+                                address_line1: 23347 Anderson Way Apt. 408
+                                address_line2: Suite 673
+                                address_line3: null
+                            amount: '1468.73'
+                            refunded_amount: '0.00'
+                            deleted_at: null
+                            created_at: '2020-06-02T22:36:46.000000Z'
+                            updated_at: '2020-06-02T22:36:46.000000Z'
+                        shipments:
+                          - id: 6
+                            order_id: 6
+                            shipment_processor_id: 1
+                            status: lost
+                            line_items:
+                              - id: 1
+                                sku: Sint odio.
+                                name: Non nemo rem aliquid.
+                                depth: 1866
+                                pivot:
+                                  order_id: 6
+                                  quantity: 1
+                                  product_id: 1
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '413.61'
+                                width: 1939
+                                height: 832
+                                weight: 309
+                                taxable: true
+                                shippable: true
+                                categories:
+                                  - ut
+                                  - beatae
+                                  - error
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                              - id: 2
+                                sku: Quia est.
+                                name: Ad nisi voluptas a quis.
+                                depth: 1300
+                                pivot:
+                                  order_id: 6
+                                  quantity: 5
+                                  product_id: 2
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '158.38'
+                                width: 530
+                                height: 1731
+                                weight: 877
+                                taxable: true
+                                shippable: true
+                                categories:
+                                  - architecto
+                                  - veniam
+                                  - neque
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                              - id: 3
+                                sku: Ea.
+                                name: Qui quia ea error.
+                                depth: 12
+                                pivot:
+                                  order_id: 6
+                                  quantity: 1
+                                  product_id: 3
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '263.22'
+                                width: 466
+                                height: 1775
+                                weight: 1326
+                                taxable: false
+                                shippable: true
+                                categories:
+                                  - numquam
+                                  - qui
+                                  - voluptatem
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                            carrier: null
+                            shipping_service: null
+                            tracking_number: '54589267854'
+                            destination:
+                              - id: 5
+                                city: North Ivory
+                                country: US
+                                company_id: 1
+                                created_at: '2020-06-02T22:36:46.000000Z'
+                                updated_at: '2020-06-02T22:36:46.000000Z'
+                                admin_area1: KY
+                                admin_area2: null
+                                customer_id: 2
+                                postal_code: '80418'
+                                address_line1: 23347 Anderson Way Apt. 408
+                                address_line2: Suite 673
+                                address_line3: null
+                            shippable_id: 0
+                            shippable_type: 'Boxc::class'
+                            deleted_at: null
+                            created_at: '2020-06-02T22:36:46.000000Z'
+                            updated_at: '2020-06-02T22:36:46.000000Z'
+                        updated_at: '2020-06-02T22:36:46.000000Z'
+                        created_at: '2020-06-02T22:36:46.000000Z'
+                      - id: 7
+                        status: pending
+                        customer_id: 8
+                        company_id: 1
+                        billing_address_id: 29
+                        shipping_address_id: 31
+                        payment_method_id: 8
+                        discount_amount: '0.00'
+                        total: '1723.96'
+                        products:
+                          - id: 1
+                            company_id: 1
+                            name: Non nemo rem aliquid.
+                            price: '413.61'
+                            sku: Sint odio.
+                            taxable: 1
+                            shippable: 1
+                            categories: '["ut", "beatae", "error"]'
+                            weight: 309
+                            height: 832
+                            width: 1939
+                            depth: 1866
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 2
+                            billing_type: once
+                            billing_schedule: '0'
+                          - id: 2
+                            company_id: 1
+                            name: Ad nisi voluptas a quis.
+                            price: '158.38'
+                            sku: Quia est.
+                            taxable: 1
+                            shippable: 1
+                            categories: '["architecto", "veniam", "neque"]'
+                            weight: 877
+                            height: 1731
+                            width: 530
+                            depth: 1300
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 4
+                            billing_type: once
+                            billing_schedule: '0'
+                          - id: 3
+                            company_id: 1
+                            name: Qui quia ea error.
+                            price: '263.22'
+                            sku: Ea.
+                            taxable: 0
+                            shippable: 1
+                            categories: '["numquam", "qui", "voluptatem"]'
+                            weight: 1326
+                            height: 1775
+                            width: 466
+                            depth: 12
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 1
+                            billing_type: once
+                            billing_schedule: '0'
+                        tax: '0.00'
+                        payments:
+                          - id: 7
+                            company_id: 1
+                            order_id: 7
+                            payment_method_id: 8
+                            payment_processor_id: 1
+                            status: pending
+                            billing_address:
+                              - id: 29
+                                city: Lake Vitaport
+                                country: US
+                                company_id: 1
+                                created_at: '2020-06-02T22:36:46.000000Z'
+                                updated_at: '2020-06-02T22:36:46.000000Z'
+                                admin_area1: TN
+                                admin_area2: null
+                                customer_id: 8
+                                postal_code: 23311-6274
+                                address_line1: 389 Veum Common
+                                address_line2: Apt. 376
+                                address_line3: null
+                            amount: '1723.96'
+                            refunded_amount: '0.00'
+                            deleted_at: null
+                            created_at: '2020-06-02T22:36:46.000000Z'
+                            updated_at: '2020-06-02T22:36:46.000000Z'
+                        shipments:
+                          - id: 7
+                            order_id: 7
+                            shipment_processor_id: 1
+                            status: in_transit
+                            line_items:
+                              - id: 1
+                                sku: Sint odio.
+                                name: Non nemo rem aliquid.
+                                depth: 1866
+                                pivot:
+                                  order_id: 7
+                                  quantity: 2
+                                  product_id: 1
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '413.61'
+                                width: 1939
+                                height: 832
+                                weight: 309
+                                taxable: true
+                                shippable: true
+                                categories:
+                                  - ut
+                                  - beatae
+                                  - error
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                              - id: 2
+                                sku: Quia est.
+                                name: Ad nisi voluptas a quis.
+                                depth: 1300
+                                pivot:
+                                  order_id: 7
+                                  quantity: 4
+                                  product_id: 2
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '158.38'
+                                width: 530
+                                height: 1731
+                                weight: 877
+                                taxable: true
+                                shippable: true
+                                categories:
+                                  - architecto
+                                  - veniam
+                                  - neque
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                              - id: 3
+                                sku: Ea.
+                                name: Qui quia ea error.
+                                depth: 12
+                                pivot:
+                                  order_id: 7
+                                  quantity: 1
+                                  product_id: 3
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '263.22'
+                                width: 466
+                                height: 1775
+                                weight: 1326
+                                taxable: false
+                                shippable: true
+                                categories:
+                                  - numquam
+                                  - qui
+                                  - voluptatem
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                            carrier: null
+                            shipping_service: null
+                            tracking_number: '45552416663'
+                            destination:
+                              - id: 31
+                                city: East Maceyland
+                                country: US
+                                company_id: 1
+                                created_at: '2020-06-02T22:36:46.000000Z'
+                                updated_at: '2020-06-02T22:36:46.000000Z'
+                                admin_area1: NE
+                                admin_area2: null
+                                customer_id: 8
+                                postal_code: 11309-7356
+                                address_line1: 9556 Tromp Valleys
+                                address_line2: Suite 059
+                                address_line3: null
+                            shippable_id: 0
+                            shippable_type: 'Boxc::class'
+                            deleted_at: null
+                            created_at: '2020-06-02T22:36:46.000000Z'
+                            updated_at: '2020-06-02T22:36:46.000000Z'
+                        updated_at: '2020-06-02T22:36:46.000000Z'
+                        created_at: '2020-06-02T22:36:46.000000Z'
+                      - id: 8
+                        status: pending
+                        customer_id: 1
+                        company_id: 1
+                        billing_address_id: 3
+                        shipping_address_id: 1
+                        payment_method_id: 1
+                        discount_amount: '0.00'
+                        total: '2204.85'
+                        products:
+                          - id: 1
+                            company_id: 1
+                            name: Non nemo rem aliquid.
+                            price: '413.61'
+                            sku: Sint odio.
+                            taxable: 1
+                            shippable: 1
+                            categories: '["ut", "beatae", "error"]'
+                            weight: 309
+                            height: 832
+                            width: 1939
+                            depth: 1866
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 1
+                            billing_type: once
+                            billing_schedule: '0'
+                          - id: 2
+                            company_id: 1
+                            name: Ad nisi voluptas a quis.
+                            price: '158.38'
+                            sku: Quia est.
+                            taxable: 1
+                            shippable: 1
+                            categories: '["architecto", "veniam", "neque"]'
+                            weight: 877
+                            height: 1731
+                            width: 530
+                            depth: 1300
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 3
+                            billing_type: once
+                            billing_schedule: '0'
+                          - id: 3
+                            company_id: 1
+                            name: Qui quia ea error.
+                            price: '263.22'
+                            sku: Ea.
+                            taxable: 0
+                            shippable: 1
+                            categories: '["numquam", "qui", "voluptatem"]'
+                            weight: 1326
+                            height: 1775
+                            width: 466
+                            depth: 12
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 5
+                            billing_type: once
+                            billing_schedule: '0'
+                        tax: '0.00'
+                        payments:
+                          - id: 8
+                            company_id: 1
+                            order_id: 8
+                            payment_method_id: 1
+                            payment_processor_id: 1
+                            status: pending
+                            billing_address:
+                              - id: 3
+                                city: North Elenatown
+                                country: US
+                                company_id: 1
+                                created_at: '2020-06-02T22:36:46.000000Z'
+                                updated_at: '2020-06-02T22:36:46.000000Z'
+                                admin_area1: MD
+                                admin_area2: null
+                                customer_id: 1
+                                postal_code: '84916'
+                                address_line1: 54867 Stracke Mission
+                                address_line2: Apt. 020
+                                address_line3: null
+                            amount: '2204.85'
+                            refunded_amount: '0.00'
+                            deleted_at: null
+                            created_at: '2020-06-02T22:36:47.000000Z'
+                            updated_at: '2020-06-02T22:36:47.000000Z'
+                        shipments:
+                          - id: 8
+                            order_id: 8
+                            shipment_processor_id: 1
+                            status: returned_to_sender
+                            line_items:
+                              - id: 1
+                                sku: Sint odio.
+                                name: Non nemo rem aliquid.
+                                depth: 1866
+                                pivot:
+                                  order_id: 8
+                                  quantity: 1
+                                  product_id: 1
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '413.61'
+                                width: 1939
+                                height: 832
+                                weight: 309
+                                taxable: true
+                                shippable: true
+                                categories:
+                                  - ut
+                                  - beatae
+                                  - error
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                              - id: 2
+                                sku: Quia est.
+                                name: Ad nisi voluptas a quis.
+                                depth: 1300
+                                pivot:
+                                  order_id: 8
+                                  quantity: 3
+                                  product_id: 2
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '158.38'
+                                width: 530
+                                height: 1731
+                                weight: 877
+                                taxable: true
+                                shippable: true
+                                categories:
+                                  - architecto
+                                  - veniam
+                                  - neque
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                              - id: 3
+                                sku: Ea.
+                                name: Qui quia ea error.
+                                depth: 12
+                                pivot:
+                                  order_id: 8
+                                  quantity: 5
+                                  product_id: 3
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '263.22'
+                                width: 466
+                                height: 1775
+                                weight: 1326
+                                taxable: false
+                                shippable: true
+                                categories:
+                                  - numquam
+                                  - qui
+                                  - voluptatem
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                            carrier: null
+                            shipping_service: null
+                            tracking_number: '25890314896'
+                            destination:
+                              - id: 1
+                                city: Port Alisonhaven
+                                country: US
+                                company_id: 1
+                                created_at: '2020-06-02T22:36:46.000000Z'
+                                updated_at: '2020-06-02T22:36:46.000000Z'
+                                admin_area1: SC
+                                admin_area2: null
+                                customer_id: 1
+                                postal_code: '33536'
+                                address_line1: 79512 Colby Expressway
+                                address_line2: Apt. 226
+                                address_line3: null
+                            shippable_id: 0
+                            shippable_type: 'Boxc::class'
+                            deleted_at: null
+                            created_at: '2020-06-02T22:36:47.000000Z'
+                            updated_at: '2020-06-02T22:36:47.000000Z'
+                        updated_at: '2020-06-02T22:36:46.000000Z'
+                        created_at: '2020-06-02T22:36:46.000000Z'
+                      - id: 9
+                        status: pending
+                        customer_id: 4
+                        company_id: 1
+                        billing_address_id: 13
+                        shipping_address_id: 14
+                        payment_method_id: 4
+                        discount_amount: '0.00'
+                        total: '3604.06'
+                        products:
+                          - id: 1
+                            company_id: 1
+                            name: Non nemo rem aliquid.
+                            price: '413.61'
+                            sku: Sint odio.
+                            taxable: 1
+                            shippable: 1
+                            categories: '["ut", "beatae", "error"]'
+                            weight: 309
+                            height: 832
+                            width: 1939
+                            depth: 1866
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 4
+                            billing_type: once
+                            billing_schedule: '0'
+                          - id: 2
+                            company_id: 1
+                            name: Ad nisi voluptas a quis.
+                            price: '158.38'
+                            sku: Quia est.
+                            taxable: 1
+                            shippable: 1
+                            categories: '["architecto", "veniam", "neque"]'
+                            weight: 877
+                            height: 1731
+                            width: 530
+                            depth: 1300
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 4
+                            billing_type: once
+                            billing_schedule: '0'
+                          - id: 3
+                            company_id: 1
+                            name: Qui quia ea error.
+                            price: '263.22'
+                            sku: Ea.
+                            taxable: 0
+                            shippable: 1
+                            categories: '["numquam", "qui", "voluptatem"]'
+                            weight: 1326
+                            height: 1775
+                            width: 466
+                            depth: 12
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 5
+                            billing_type: once
+                            billing_schedule: '0'
+                        tax: '0.00'
+                        payments:
+                          - id: 9
+                            company_id: 1
+                            order_id: 9
+                            payment_method_id: 4
+                            payment_processor_id: 1
+                            status: pending
+                            billing_address:
+                              - id: 13
+                                city: Pourosshire
+                                country: US
+                                company_id: 1
+                                created_at: '2020-06-02T22:36:46.000000Z'
+                                updated_at: '2020-06-02T22:36:46.000000Z'
+                                admin_area1: FL
+                                admin_area2: null
+                                customer_id: 4
+                                postal_code: 81399-3022
+                                address_line1: 794 Santa Well
+                                address_line2: Suite 390
+                                address_line3: null
+                            amount: '3604.06'
+                            refunded_amount: '0.00'
+                            deleted_at: null
+                            created_at: '2020-06-02T22:36:47.000000Z'
+                            updated_at: '2020-06-02T22:36:47.000000Z'
+                        shipments:
+                          - id: 9
+                            order_id: 9
+                            shipment_processor_id: 1
+                            status: out_for_delivery
+                            line_items:
+                              - id: 1
+                                sku: Sint odio.
+                                name: Non nemo rem aliquid.
+                                depth: 1866
+                                pivot:
+                                  order_id: 9
+                                  quantity: 4
+                                  product_id: 1
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '413.61'
+                                width: 1939
+                                height: 832
+                                weight: 309
+                                taxable: true
+                                shippable: true
+                                categories:
+                                  - ut
+                                  - beatae
+                                  - error
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                              - id: 2
+                                sku: Quia est.
+                                name: Ad nisi voluptas a quis.
+                                depth: 1300
+                                pivot:
+                                  order_id: 9
+                                  quantity: 4
+                                  product_id: 2
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '158.38'
+                                width: 530
+                                height: 1731
+                                weight: 877
+                                taxable: true
+                                shippable: true
+                                categories:
+                                  - architecto
+                                  - veniam
+                                  - neque
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                              - id: 3
+                                sku: Ea.
+                                name: Qui quia ea error.
+                                depth: 12
+                                pivot:
+                                  order_id: 9
+                                  quantity: 5
+                                  product_id: 3
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '263.22'
+                                width: 466
+                                height: 1775
+                                weight: 1326
+                                taxable: false
+                                shippable: true
+                                categories:
+                                  - numquam
+                                  - qui
+                                  - voluptatem
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                            carrier: null
+                            shipping_service: null
+                            tracking_number: '85509710036'
+                            destination:
+                              - id: 14
+                                city: Towneland
+                                country: US
+                                company_id: 1
+                                created_at: '2020-06-02T22:36:46.000000Z'
+                                updated_at: '2020-06-02T22:36:46.000000Z'
+                                admin_area1: WA
+                                admin_area2: null
+                                customer_id: 4
+                                postal_code: '92009'
+                                address_line1: 534 Maudie Causeway Suite 248
+                                address_line2: Apt. 602
+                                address_line3: null
+                            shippable_id: 0
+                            shippable_type: 'Boxc::class'
+                            deleted_at: null
+                            created_at: '2020-06-02T22:36:47.000000Z'
+                            updated_at: '2020-06-02T22:36:47.000000Z'
+                        updated_at: '2020-06-02T22:36:47.000000Z'
+                        created_at: '2020-06-02T22:36:47.000000Z'
+                      - id: 10
+                        status: pending
+                        customer_id: 9
+                        company_id: 1
+                        billing_address_id: 33
+                        shipping_address_id: 35
+                        payment_method_id: 9
+                        discount_amount: '0.00'
+                        total: '1723.96'
+                        products:
+                          - id: 1
+                            company_id: 1
+                            name: Non nemo rem aliquid.
+                            price: '413.61'
+                            sku: Sint odio.
+                            taxable: 1
+                            shippable: 1
+                            categories: '["ut", "beatae", "error"]'
+                            weight: 309
+                            height: 832
+                            width: 1939
+                            depth: 1866
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 2
+                            billing_type: once
+                            billing_schedule: '0'
+                          - id: 2
+                            company_id: 1
+                            name: Ad nisi voluptas a quis.
+                            price: '158.38'
+                            sku: Quia est.
+                            taxable: 1
+                            shippable: 1
+                            categories: '["architecto", "veniam", "neque"]'
+                            weight: 877
+                            height: 1731
+                            width: 530
+                            depth: 1300
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 4
+                            billing_type: once
+                            billing_schedule: '0'
+                          - id: 3
+                            company_id: 1
+                            name: Qui quia ea error.
+                            price: '263.22'
+                            sku: Ea.
+                            taxable: 0
+                            shippable: 1
+                            categories: '["numquam", "qui", "voluptatem"]'
+                            weight: 1326
+                            height: 1775
+                            width: 466
+                            depth: 12
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 1
+                            billing_type: once
+                            billing_schedule: '0'
+                        tax: '0.00'
+                        payments:
+                          - id: 10
+                            company_id: 1
+                            order_id: 10
+                            payment_method_id: 9
+                            payment_processor_id: 1
+                            status: pending
+                            billing_address:
+                              - id: 33
+                                city: North Tiffany
+                                country: US
+                                company_id: 1
+                                created_at: '2020-06-02T22:36:46.000000Z'
+                                updated_at: '2020-06-02T22:36:46.000000Z'
+                                admin_area1: KS
+                                admin_area2: null
+                                customer_id: 9
+                                postal_code: '01540'
+                                address_line1: 1717 Glover Port Suite 191
+                                address_line2: Apt. 444
+                                address_line3: null
+                            amount: '1723.96'
+                            refunded_amount: '0.00'
+                            deleted_at: null
+                            created_at: '2020-06-02T22:36:47.000000Z'
+                            updated_at: '2020-06-02T22:36:47.000000Z'
+                        shipments:
+                          - id: 10
+                            order_id: 10
+                            shipment_processor_id: 1
+                            status: out_for_delivery
+                            line_items:
+                              - id: 1
+                                sku: Sint odio.
+                                name: Non nemo rem aliquid.
+                                depth: 1866
+                                pivot:
+                                  order_id: 10
+                                  quantity: 2
+                                  product_id: 1
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '413.61'
+                                width: 1939
+                                height: 832
+                                weight: 309
+                                taxable: true
+                                shippable: true
+                                categories:
+                                  - ut
+                                  - beatae
+                                  - error
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                              - id: 2
+                                sku: Quia est.
+                                name: Ad nisi voluptas a quis.
+                                depth: 1300
+                                pivot:
+                                  order_id: 10
+                                  quantity: 4
+                                  product_id: 2
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '158.38'
+                                width: 530
+                                height: 1731
+                                weight: 877
+                                taxable: true
+                                shippable: true
+                                categories:
+                                  - architecto
+                                  - veniam
+                                  - neque
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                              - id: 3
+                                sku: Ea.
+                                name: Qui quia ea error.
+                                depth: 12
+                                pivot:
+                                  order_id: 10
+                                  quantity: 1
+                                  product_id: 3
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '263.22'
+                                width: 466
+                                height: 1775
+                                weight: 1326
+                                taxable: false
+                                shippable: true
+                                categories:
+                                  - numquam
+                                  - qui
+                                  - voluptatem
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                            carrier: null
+                            shipping_service: null
+                            tracking_number: '3751229326'
+                            destination:
+                              - id: 35
+                                city: Emmettmouth
+                                country: US
+                                company_id: 1
+                                created_at: '2020-06-02T22:36:46.000000Z'
+                                updated_at: '2020-06-02T22:36:46.000000Z'
+                                admin_area1: NE
+                                admin_area2: null
+                                customer_id: 9
+                                postal_code: '60008'
+                                address_line1: 69109 Kihn Islands
+                                address_line2: Apt. 470
+                                address_line3: null
+                            shippable_id: 0
+                            shippable_type: 'Boxc::class'
+                            deleted_at: null
+                            created_at: '2020-06-02T22:36:47.000000Z'
+                            updated_at: '2020-06-02T22:36:47.000000Z'
+                        updated_at: '2020-06-02T22:36:47.000000Z'
+                        created_at: '2020-06-02T22:36:47.000000Z'
+                      - id: 11
+                        status: pending
+                        customer_id: 7
+                        company_id: 1
+                        billing_address_id: 26
+                        shipping_address_id: 28
+                        payment_method_id: 7
+                        discount_amount: '0.00'
+                        total: '3279.31'
+                        products:
+                          - id: 1
+                            company_id: 1
+                            name: Non nemo rem aliquid.
+                            price: '413.61'
+                            sku: Sint odio.
+                            taxable: 1
+                            shippable: 1
+                            categories: '["ut", "beatae", "error"]'
+                            weight: 309
+                            height: 832
+                            width: 1939
+                            depth: 1866
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 5
+                            billing_type: once
+                            billing_schedule: '0'
+                          - id: 2
+                            company_id: 1
+                            name: Ad nisi voluptas a quis.
+                            price: '158.38'
+                            sku: Quia est.
+                            taxable: 1
+                            shippable: 1
+                            categories: '["architecto", "veniam", "neque"]'
+                            weight: 877
+                            height: 1731
+                            width: 530
+                            depth: 1300
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 1
+                            billing_type: once
+                            billing_schedule: '0'
+                          - id: 3
+                            company_id: 1
+                            name: Qui quia ea error.
+                            price: '263.22'
+                            sku: Ea.
+                            taxable: 0
+                            shippable: 1
+                            categories: '["numquam", "qui", "voluptatem"]'
+                            weight: 1326
+                            height: 1775
+                            width: 466
+                            depth: 12
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 4
+                            billing_type: once
+                            billing_schedule: '0'
+                        tax: '0.00'
+                        payments:
+                          - id: 11
+                            company_id: 1
+                            order_id: 11
+                            payment_method_id: 7
+                            payment_processor_id: 1
+                            status: pending
+                            billing_address:
+                              - id: 26
+                                city: Armstrongborough
+                                country: US
+                                company_id: 1
+                                created_at: '2020-06-02T22:36:46.000000Z'
+                                updated_at: '2020-06-02T22:36:46.000000Z'
+                                admin_area1: MA
+                                admin_area2: null
+                                customer_id: 7
+                                postal_code: 24647-4808
+                                address_line1: 20560 Dovie Street
+                                address_line2: Suite 314
+                                address_line3: null
+                            amount: '3279.31'
+                            refunded_amount: '0.00'
+                            deleted_at: null
+                            created_at: '2020-06-02T22:36:47.000000Z'
+                            updated_at: '2020-06-02T22:36:47.000000Z'
+                        shipments:
+                          - id: 11
+                            order_id: 11
+                            shipment_processor_id: 1
+                            status: out_for_delivery
+                            line_items:
+                              - id: 1
+                                sku: Sint odio.
+                                name: Non nemo rem aliquid.
+                                depth: 1866
+                                pivot:
+                                  order_id: 11
+                                  quantity: 5
+                                  product_id: 1
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '413.61'
+                                width: 1939
+                                height: 832
+                                weight: 309
+                                taxable: true
+                                shippable: true
+                                categories:
+                                  - ut
+                                  - beatae
+                                  - error
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                              - id: 2
+                                sku: Quia est.
+                                name: Ad nisi voluptas a quis.
+                                depth: 1300
+                                pivot:
+                                  order_id: 11
+                                  quantity: 1
+                                  product_id: 2
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '158.38'
+                                width: 530
+                                height: 1731
+                                weight: 877
+                                taxable: true
+                                shippable: true
+                                categories:
+                                  - architecto
+                                  - veniam
+                                  - neque
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                              - id: 3
+                                sku: Ea.
+                                name: Qui quia ea error.
+                                depth: 12
+                                pivot:
+                                  order_id: 11
+                                  quantity: 4
+                                  product_id: 3
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '263.22'
+                                width: 466
+                                height: 1775
+                                weight: 1326
+                                taxable: false
+                                shippable: true
+                                categories:
+                                  - numquam
+                                  - qui
+                                  - voluptatem
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                            carrier: null
+                            shipping_service: null
+                            tracking_number: '44231753653'
+                            destination:
+                              - id: 28
+                                city: Tremblayfurt
+                                country: US
+                                company_id: 1
+                                created_at: '2020-06-02T22:36:46.000000Z'
+                                updated_at: '2020-06-02T22:36:46.000000Z'
+                                admin_area1: WA
+                                admin_area2: null
+                                customer_id: 7
+                                postal_code: '85923'
+                                address_line1: 649 Mercedes Canyon
+                                address_line2: Suite 842
+                                address_line3: null
+                            shippable_id: 0
+                            shippable_type: 'Boxc::class'
+                            deleted_at: null
+                            created_at: '2020-06-02T22:36:47.000000Z'
+                            updated_at: '2020-06-02T22:36:47.000000Z'
+                        updated_at: '2020-06-02T22:36:47.000000Z'
+                        created_at: '2020-06-02T22:36:47.000000Z'
+                      - id: 12
+                        status: pending
+                        customer_id: 10
+                        company_id: 1
+                        billing_address_id: 39
+                        shipping_address_id: 40
+                        payment_method_id: 10
+                        discount_amount: '0.00'
+                        total: '4176.05'
+                        products:
+                          - id: 1
+                            company_id: 1
+                            name: Non nemo rem aliquid.
+                            price: '413.61'
+                            sku: Sint odio.
+                            taxable: 1
+                            shippable: 1
+                            categories: '["ut", "beatae", "error"]'
+                            weight: 309
+                            height: 832
+                            width: 1939
+                            depth: 1866
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 5
+                            billing_type: once
+                            billing_schedule: '0'
+                          - id: 2
+                            company_id: 1
+                            name: Ad nisi voluptas a quis.
+                            price: '158.38'
+                            sku: Quia est.
+                            taxable: 1
+                            shippable: 1
+                            categories: '["architecto", "veniam", "neque"]'
+                            weight: 877
+                            height: 1731
+                            width: 530
+                            depth: 1300
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 5
+                            billing_type: once
+                            billing_schedule: '0'
+                          - id: 3
+                            company_id: 1
+                            name: Qui quia ea error.
+                            price: '263.22'
+                            sku: Ea.
+                            taxable: 0
+                            shippable: 1
+                            categories: '["numquam", "qui", "voluptatem"]'
+                            weight: 1326
+                            height: 1775
+                            width: 466
+                            depth: 12
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 5
+                            billing_type: once
+                            billing_schedule: '0'
+                        tax: '0.00'
+                        payments:
+                          - id: 12
+                            company_id: 1
+                            order_id: 12
+                            payment_method_id: 10
+                            payment_processor_id: 1
+                            status: pending
+                            billing_address:
+                              - id: 39
+                                city: South Zena
+                                country: US
+                                company_id: 1
+                                created_at: '2020-06-02T22:36:46.000000Z'
+                                updated_at: '2020-06-02T22:36:46.000000Z'
+                                admin_area1: OK
+                                admin_area2: null
+                                customer_id: 10
+                                postal_code: '10397'
+                                address_line1: 564 Jettie Station Apt. 743
+                                address_line2: Suite 988
+                                address_line3: null
+                            amount: '4176.05'
+                            refunded_amount: '0.00'
+                            deleted_at: null
+                            created_at: '2020-06-02T22:36:47.000000Z'
+                            updated_at: '2020-06-02T22:36:47.000000Z'
+                        shipments:
+                          - id: 12
+                            order_id: 12
+                            shipment_processor_id: 1
+                            status: label_ready
+                            line_items:
+                              - id: 1
+                                sku: Sint odio.
+                                name: Non nemo rem aliquid.
+                                depth: 1866
+                                pivot:
+                                  order_id: 12
+                                  quantity: 5
+                                  product_id: 1
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '413.61'
+                                width: 1939
+                                height: 832
+                                weight: 309
+                                taxable: true
+                                shippable: true
+                                categories:
+                                  - ut
+                                  - beatae
+                                  - error
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                              - id: 2
+                                sku: Quia est.
+                                name: Ad nisi voluptas a quis.
+                                depth: 1300
+                                pivot:
+                                  order_id: 12
+                                  quantity: 5
+                                  product_id: 2
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '158.38'
+                                width: 530
+                                height: 1731
+                                weight: 877
+                                taxable: true
+                                shippable: true
+                                categories:
+                                  - architecto
+                                  - veniam
+                                  - neque
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                              - id: 3
+                                sku: Ea.
+                                name: Qui quia ea error.
+                                depth: 12
+                                pivot:
+                                  order_id: 12
+                                  quantity: 5
+                                  product_id: 3
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '263.22'
+                                width: 466
+                                height: 1775
+                                weight: 1326
+                                taxable: false
+                                shippable: true
+                                categories:
+                                  - numquam
+                                  - qui
+                                  - voluptatem
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                            carrier: null
+                            shipping_service: null
+                            tracking_number: '18828474928'
+                            destination:
+                              - id: 40
+                                city: Sabinaton
+                                country: US
+                                company_id: 1
+                                created_at: '2020-06-02T22:36:46.000000Z'
+                                updated_at: '2020-06-02T22:36:46.000000Z'
+                                admin_area1: OR
+                                admin_area2: null
+                                customer_id: 10
+                                postal_code: '57636'
+                                address_line1: 858 Wayne Canyon
+                                address_line2: Suite 741
+                                address_line3: null
+                            shippable_id: 0
+                            shippable_type: 'Boxc::class'
+                            deleted_at: null
+                            created_at: '2020-06-02T22:36:47.000000Z'
+                            updated_at: '2020-06-02T22:36:47.000000Z'
+                        updated_at: '2020-06-02T22:36:47.000000Z'
+                        created_at: '2020-06-02T22:36:47.000000Z'
+                      - id: 13
+                        status: pending
+                        customer_id: 4
+                        company_id: 1
+                        billing_address_id: 14
+                        shipping_address_id: 13
+                        payment_method_id: 4
+                        discount_amount: '0.00'
+                        total: '1882.34'
+                        products:
+                          - id: 1
+                            company_id: 1
+                            name: Non nemo rem aliquid.
+                            price: '413.61'
+                            sku: Sint odio.
+                            taxable: 1
+                            shippable: 1
+                            categories: '["ut", "beatae", "error"]'
+                            weight: 309
+                            height: 832
+                            width: 1939
+                            depth: 1866
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 2
+                            billing_type: once
+                            billing_schedule: '0'
+                          - id: 2
+                            company_id: 1
+                            name: Ad nisi voluptas a quis.
+                            price: '158.38'
+                            sku: Quia est.
+                            taxable: 1
+                            shippable: 1
+                            categories: '["architecto", "veniam", "neque"]'
+                            weight: 877
+                            height: 1731
+                            width: 530
+                            depth: 1300
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 5
+                            billing_type: once
+                            billing_schedule: '0'
+                          - id: 3
+                            company_id: 1
+                            name: Qui quia ea error.
+                            price: '263.22'
+                            sku: Ea.
+                            taxable: 0
+                            shippable: 1
+                            categories: '["numquam", "qui", "voluptatem"]'
+                            weight: 1326
+                            height: 1775
+                            width: 466
+                            depth: 12
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 1
+                            billing_type: once
+                            billing_schedule: '0'
+                        tax: '0.00'
+                        payments:
+                          - id: 13
+                            company_id: 1
+                            order_id: 13
+                            payment_method_id: 4
+                            payment_processor_id: 1
+                            status: pending
+                            billing_address:
+                              - id: 14
+                                city: Towneland
+                                country: US
+                                company_id: 1
+                                created_at: '2020-06-02T22:36:46.000000Z'
+                                updated_at: '2020-06-02T22:36:46.000000Z'
+                                admin_area1: WA
+                                admin_area2: null
+                                customer_id: 4
+                                postal_code: '92009'
+                                address_line1: 534 Maudie Causeway Suite 248
+                                address_line2: Apt. 602
+                                address_line3: null
+                            amount: '1882.34'
+                            refunded_amount: '0.00'
+                            deleted_at: null
+                            created_at: '2020-06-02T22:36:47.000000Z'
+                            updated_at: '2020-06-02T22:36:47.000000Z'
+                        shipments:
+                          - id: 13
+                            order_id: 13
+                            shipment_processor_id: 1
+                            status: shipped
+                            line_items:
+                              - id: 1
+                                sku: Sint odio.
+                                name: Non nemo rem aliquid.
+                                depth: 1866
+                                pivot:
+                                  order_id: 13
+                                  quantity: 2
+                                  product_id: 1
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '413.61'
+                                width: 1939
+                                height: 832
+                                weight: 309
+                                taxable: true
+                                shippable: true
+                                categories:
+                                  - ut
+                                  - beatae
+                                  - error
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                              - id: 2
+                                sku: Quia est.
+                                name: Ad nisi voluptas a quis.
+                                depth: 1300
+                                pivot:
+                                  order_id: 13
+                                  quantity: 5
+                                  product_id: 2
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '158.38'
+                                width: 530
+                                height: 1731
+                                weight: 877
+                                taxable: true
+                                shippable: true
+                                categories:
+                                  - architecto
+                                  - veniam
+                                  - neque
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                              - id: 3
+                                sku: Ea.
+                                name: Qui quia ea error.
+                                depth: 12
+                                pivot:
+                                  order_id: 13
+                                  quantity: 1
+                                  product_id: 3
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '263.22'
+                                width: 466
+                                height: 1775
+                                weight: 1326
+                                taxable: false
+                                shippable: true
+                                categories:
+                                  - numquam
+                                  - qui
+                                  - voluptatem
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                            carrier: null
+                            shipping_service: null
+                            tracking_number: '75678766393'
+                            destination:
+                              - id: 13
+                                city: Pourosshire
+                                country: US
+                                company_id: 1
+                                created_at: '2020-06-02T22:36:46.000000Z'
+                                updated_at: '2020-06-02T22:36:46.000000Z'
+                                admin_area1: FL
+                                admin_area2: null
+                                customer_id: 4
+                                postal_code: 81399-3022
+                                address_line1: 794 Santa Well
+                                address_line2: Suite 390
+                                address_line3: null
+                            shippable_id: 0
+                            shippable_type: 'Boxc::class'
+                            deleted_at: null
+                            created_at: '2020-06-02T22:36:47.000000Z'
+                            updated_at: '2020-06-02T22:36:47.000000Z'
+                        updated_at: '2020-06-02T22:36:47.000000Z'
+                        created_at: '2020-06-02T22:36:47.000000Z'
+                      - id: 14
+                        status: pending
+                        customer_id: 9
+                        company_id: 1
+                        billing_address_id: 35
+                        shipping_address_id: 35
+                        payment_method_id: 9
+                        discount_amount: '0.00'
+                        total: '3649.61'
+                        products:
+                          - id: 1
+                            company_id: 1
+                            name: Non nemo rem aliquid.
+                            price: '413.61'
+                            sku: Sint odio.
+                            taxable: 1
+                            shippable: 1
+                            categories: '["ut", "beatae", "error"]'
+                            weight: 309
+                            height: 832
+                            width: 1939
+                            depth: 1866
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 5
+                            billing_type: once
+                            billing_schedule: '0'
+                          - id: 2
+                            company_id: 1
+                            name: Ad nisi voluptas a quis.
+                            price: '158.38'
+                            sku: Quia est.
+                            taxable: 1
+                            shippable: 1
+                            categories: '["architecto", "veniam", "neque"]'
+                            weight: 877
+                            height: 1731
+                            width: 530
+                            depth: 1300
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 5
+                            billing_type: once
+                            billing_schedule: '0'
+                          - id: 3
+                            company_id: 1
+                            name: Qui quia ea error.
+                            price: '263.22'
+                            sku: Ea.
+                            taxable: 0
+                            shippable: 1
+                            categories: '["numquam", "qui", "voluptatem"]'
+                            weight: 1326
+                            height: 1775
+                            width: 466
+                            depth: 12
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 3
+                            billing_type: once
+                            billing_schedule: '0'
+                        tax: '0.00'
+                        payments:
+                          - id: 14
+                            company_id: 1
+                            order_id: 14
+                            payment_method_id: 9
+                            payment_processor_id: 1
+                            status: pending
+                            billing_address:
+                              - id: 35
+                                city: Emmettmouth
+                                country: US
+                                company_id: 1
+                                created_at: '2020-06-02T22:36:46.000000Z'
+                                updated_at: '2020-06-02T22:36:46.000000Z'
+                                admin_area1: NE
+                                admin_area2: null
+                                customer_id: 9
+                                postal_code: '60008'
+                                address_line1: 69109 Kihn Islands
+                                address_line2: Apt. 470
+                                address_line3: null
+                            amount: '3649.61'
+                            refunded_amount: '0.00'
+                            deleted_at: null
+                            created_at: '2020-06-02T22:36:47.000000Z'
+                            updated_at: '2020-06-02T22:36:47.000000Z'
+                        shipments:
+                          - id: 14
+                            order_id: 14
+                            shipment_processor_id: 1
+                            status: returned_to_sender
+                            line_items:
+                              - id: 1
+                                sku: Sint odio.
+                                name: Non nemo rem aliquid.
+                                depth: 1866
+                                pivot:
+                                  order_id: 14
+                                  quantity: 5
+                                  product_id: 1
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '413.61'
+                                width: 1939
+                                height: 832
+                                weight: 309
+                                taxable: true
+                                shippable: true
+                                categories:
+                                  - ut
+                                  - beatae
+                                  - error
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                              - id: 2
+                                sku: Quia est.
+                                name: Ad nisi voluptas a quis.
+                                depth: 1300
+                                pivot:
+                                  order_id: 14
+                                  quantity: 5
+                                  product_id: 2
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '158.38'
+                                width: 530
+                                height: 1731
+                                weight: 877
+                                taxable: true
+                                shippable: true
+                                categories:
+                                  - architecto
+                                  - veniam
+                                  - neque
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                              - id: 3
+                                sku: Ea.
+                                name: Qui quia ea error.
+                                depth: 12
+                                pivot:
+                                  order_id: 14
+                                  quantity: 3
+                                  product_id: 3
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '263.22'
+                                width: 466
+                                height: 1775
+                                weight: 1326
+                                taxable: false
+                                shippable: true
+                                categories:
+                                  - numquam
+                                  - qui
+                                  - voluptatem
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                            carrier: null
+                            shipping_service: null
+                            tracking_number: '87514724377'
+                            destination:
+                              - id: 35
+                                city: Emmettmouth
+                                country: US
+                                company_id: 1
+                                created_at: '2020-06-02T22:36:46.000000Z'
+                                updated_at: '2020-06-02T22:36:46.000000Z'
+                                admin_area1: NE
+                                admin_area2: null
+                                customer_id: 9
+                                postal_code: '60008'
+                                address_line1: 69109 Kihn Islands
+                                address_line2: Apt. 470
+                                address_line3: null
+                            shippable_id: 0
+                            shippable_type: 'Boxc::class'
+                            deleted_at: null
+                            created_at: '2020-06-02T22:36:47.000000Z'
+                            updated_at: '2020-06-02T22:36:47.000000Z'
+                        updated_at: '2020-06-02T22:36:47.000000Z'
+                        created_at: '2020-06-02T22:36:47.000000Z'
+                      - id: 15
+                        status: pending
+                        customer_id: 2
+                        company_id: 1
+                        billing_address_id: 5
+                        shipping_address_id: 6
+                        payment_method_id: 2
+                        discount_amount: '0.00'
+                        total: '2709.56'
+                        products:
+                          - id: 1
+                            company_id: 1
+                            name: Non nemo rem aliquid.
+                            price: '413.61'
+                            sku: Sint odio.
+                            taxable: 1
+                            shippable: 1
+                            categories: '["ut", "beatae", "error"]'
+                            weight: 309
+                            height: 832
+                            width: 1939
+                            depth: 1866
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 4
+                            billing_type: once
+                            billing_schedule: '0'
+                          - id: 2
+                            company_id: 1
+                            name: Ad nisi voluptas a quis.
+                            price: '158.38'
+                            sku: Quia est.
+                            taxable: 1
+                            shippable: 1
+                            categories: '["architecto", "veniam", "neque"]'
+                            weight: 877
+                            height: 1731
+                            width: 530
+                            depth: 1300
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 5
+                            billing_type: once
+                            billing_schedule: '0'
+                          - id: 3
+                            company_id: 1
+                            name: Qui quia ea error.
+                            price: '263.22'
+                            sku: Ea.
+                            taxable: 0
+                            shippable: 1
+                            categories: '["numquam", "qui", "voluptatem"]'
+                            weight: 1326
+                            height: 1775
+                            width: 466
+                            depth: 12
+                            created_at: '2020-06-02 22:36:46'
+                            updated_at: '2020-06-02 22:36:46'
+                            deleted_at: null
+                            quantity: 1
+                            billing_type: once
+                            billing_schedule: '0'
+                        tax: '0.00'
+                        payments:
+                          - id: 15
+                            company_id: 1
+                            order_id: 15
+                            payment_method_id: 2
+                            payment_processor_id: 1
+                            status: pending
+                            billing_address:
+                              - id: 5
+                                city: North Ivory
+                                country: US
+                                company_id: 1
+                                created_at: '2020-06-02T22:36:46.000000Z'
+                                updated_at: '2020-06-02T22:36:46.000000Z'
+                                admin_area1: KY
+                                admin_area2: null
+                                customer_id: 2
+                                postal_code: '80418'
+                                address_line1: 23347 Anderson Way Apt. 408
+                                address_line2: Suite 673
+                                address_line3: null
+                            amount: '2709.56'
+                            refunded_amount: '0.00'
+                            deleted_at: null
+                            created_at: '2020-06-02T22:36:47.000000Z'
+                            updated_at: '2020-06-02T22:36:47.000000Z'
+                        shipments:
+                          - id: 15
+                            order_id: 15
+                            shipment_processor_id: 1
+                            status: pending
+                            line_items:
+                              - id: 1
+                                sku: Sint odio.
+                                name: Non nemo rem aliquid.
+                                depth: 1866
+                                pivot:
+                                  order_id: 15
+                                  quantity: 4
+                                  product_id: 1
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '413.61'
+                                width: 1939
+                                height: 832
+                                weight: 309
+                                taxable: true
+                                shippable: true
+                                categories:
+                                  - ut
+                                  - beatae
+                                  - error
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                              - id: 2
+                                sku: Quia est.
+                                name: Ad nisi voluptas a quis.
+                                depth: 1300
+                                pivot:
+                                  order_id: 15
+                                  quantity: 5
+                                  product_id: 2
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '158.38'
+                                width: 530
+                                height: 1731
+                                weight: 877
+                                taxable: true
+                                shippable: true
+                                categories:
+                                  - architecto
+                                  - veniam
+                                  - neque
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                              - id: 3
+                                sku: Ea.
+                                name: Qui quia ea error.
+                                depth: 12
+                                pivot:
+                                  order_id: 15
+                                  quantity: 1
+                                  product_id: 3
+                                  billing_type: once
+                                  billing_schedule: '0'
+                                price: '263.22'
+                                width: 466
+                                height: 1775
+                                weight: 1326
+                                taxable: false
+                                shippable: true
+                                categories:
+                                  - numquam
+                                  - qui
+                                  - voluptatem
+                                company_id: 1
+                                created_at: '2020-06-02 22:36:46'
+                                updated_at: '2020-06-02 22:36:46'
+                            carrier: null
+                            shipping_service: null
+                            tracking_number: '70600445246'
+                            destination:
+                              - id: 6
+                                city: Alessandrabury
+                                country: US
+                                company_id: 1
+                                created_at: '2020-06-02T22:36:46.000000Z'
+                                updated_at: '2020-06-02T22:36:46.000000Z'
+                                admin_area1: SD
+                                admin_area2: null
+                                customer_id: 2
+                                postal_code: '14611'
+                                address_line1: 10140 Lesch Court Apt. 885
+                                address_line2: Suite 748
+                                address_line3: null
+                            shippable_id: 0
+                            shippable_type: 'Boxc::class'
+                            deleted_at: null
+                            created_at: '2020-06-02T22:36:47.000000Z'
+                            updated_at: '2020-06-02T22:36:47.000000Z'
+                        updated_at: '2020-06-02T22:36:47.000000Z'
+                        created_at: '2020-06-02T22:36:47.000000Z'
+                    links:
+                      first: 'http://crm.test/api/v1/orders?page=1'
+                      last: 'http://crm.test/api/v1/orders?page=2'
+                      prev: null
+                      next: 'http://crm.test/api/v1/orders?page=2'
+                    meta:
+                      current_page: 1
+                      from: 1
+                      last_page: 2
+                      path: 'http://crm.test/api/v1/orders'
+                      per_page: 15
+                      to: 15
+                      total: 30
+      operationId: get-orders
+      description: Get orders index
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Accept
+        - schema:
+            type: string
+          in: query
+          name: page
+    parameters: []
+    post:
+      summary: Create Order
+      operationId: post-orders
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: ../models/Order.v1.yaml
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ../models/Order-Create.v1.yaml
+      tags:
+        - Orders
+      description: Creates an order
+  '/orders/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Get Order
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: ../models/Order.v1.yaml
+              examples:
+                Example:
+                  value:
+                    data:
+                      id: 1
+                      status: pending
+                      customer_id: 2
+                      company_id: 1
+                      billing_address_id: 5
+                      shipping_address_id: 8
+                      payment_method_id: 2
+                      discount_amount: '0.00'
+                      total: '3032.07'
+                      products:
+                        - id: 1
+                          company_id: 1
+                          name: Non nemo rem aliquid.
+                          price: '413.61'
+                          sku: Sint odio.
+                          taxable: 1
+                          shippable: 1
+                          categories: '["ut", "beatae", "error"]'
+                          weight: 309
+                          height: 832
+                          width: 1939
+                          depth: 1866
+                          created_at: '2020-06-02 22:36:46'
+                          updated_at: '2020-06-02 22:36:46'
+                          deleted_at: null
+                          quantity: 3
+                          billing_type: once
+                          billing_schedule: '0'
+                        - id: 2
+                          company_id: 1
+                          name: Ad nisi voluptas a quis.
+                          price: '158.38'
+                          sku: Quia est.
+                          taxable: 1
+                          shippable: 1
+                          categories: '["architecto", "veniam", "neque"]'
+                          weight: 877
+                          height: 1731
+                          width: 530
+                          depth: 1300
+                          created_at: '2020-06-02 22:36:46'
+                          updated_at: '2020-06-02 22:36:46'
+                          deleted_at: null
+                          quantity: 3
+                          billing_type: once
+                          billing_schedule: '0'
+                        - id: 3
+                          company_id: 1
+                          name: Qui quia ea error.
+                          price: '263.22'
+                          sku: Ea.
+                          taxable: 0
+                          shippable: 1
+                          categories: '["numquam", "qui", "voluptatem"]'
+                          weight: 1326
+                          height: 1775
+                          width: 466
+                          depth: 12
+                          created_at: '2020-06-02 22:36:46'
+                          updated_at: '2020-06-02 22:36:46'
+                          deleted_at: null
+                          quantity: 5
+                          billing_type: once
+                          billing_schedule: '0'
+                      tax: '0.00'
+                      payments:
+                        - id: 1
+                          company_id: 1
+                          order_id: 1
+                          payment_method_id: 2
+                          payment_processor_id: 1
+                          status: pending
+                          billing_address:
+                            - id: 5
+                              city: North Ivory
+                              country: US
+                              company_id: 1
+                              created_at: '2020-06-02T22:36:46.000000Z'
+                              updated_at: '2020-06-02T22:36:46.000000Z'
+                              admin_area1: KY
+                              admin_area2: null
+                              customer_id: 2
+                              postal_code: '80418'
+                              address_line1: 23347 Anderson Way Apt. 408
+                              address_line2: Suite 673
+                              address_line3: null
+                          amount: '3032.07'
+                          refunded_amount: '0.00'
+                          deleted_at: null
+                          created_at: '2020-06-02T22:36:46.000000Z'
+                          updated_at: '2020-06-02T22:36:46.000000Z'
+                      shipments:
+                        - id: 1
+                          order_id: 1
+                          shipment_processor_id: 1
+                          status: exception
+                          line_items:
+                            - id: 1
+                              sku: Sint odio.
+                              name: Non nemo rem aliquid.
+                              depth: 1866
+                              pivot:
+                                order_id: 1
+                                quantity: 3
+                                product_id: 1
+                                billing_type: once
+                                billing_schedule: '0'
+                              price: '413.61'
+                              width: 1939
+                              height: 832
+                              weight: 309
+                              taxable: true
+                              shippable: true
+                              categories:
+                                - ut
+                                - beatae
+                                - error
+                              company_id: 1
+                              created_at: '2020-06-02 22:36:46'
+                              updated_at: '2020-06-02 22:36:46'
+                            - id: 2
+                              sku: Quia est.
+                              name: Ad nisi voluptas a quis.
+                              depth: 1300
+                              pivot:
+                                order_id: 1
+                                quantity: 3
+                                product_id: 2
+                                billing_type: once
+                                billing_schedule: '0'
+                              price: '158.38'
+                              width: 530
+                              height: 1731
+                              weight: 877
+                              taxable: true
+                              shippable: true
+                              categories:
+                                - architecto
+                                - veniam
+                                - neque
+                              company_id: 1
+                              created_at: '2020-06-02 22:36:46'
+                              updated_at: '2020-06-02 22:36:46'
+                            - id: 3
+                              sku: Ea.
+                              name: Qui quia ea error.
+                              depth: 12
+                              pivot:
+                                order_id: 1
+                                quantity: 5
+                                product_id: 3
+                                billing_type: once
+                                billing_schedule: '0'
+                              price: '263.22'
+                              width: 466
+                              height: 1775
+                              weight: 1326
+                              taxable: false
+                              shippable: true
+                              categories:
+                                - numquam
+                                - qui
+                                - voluptatem
+                              company_id: 1
+                              created_at: '2020-06-02 22:36:46'
+                              updated_at: '2020-06-02 22:36:46'
+                          carrier: null
+                          shipping_service: null
+                          tracking_number: '60563382194'
+                          destination:
+                            - id: 8
+                              city: North Gloria
+                              country: US
+                              company_id: 1
+                              created_at: '2020-06-02T22:36:46.000000Z'
+                              updated_at: '2020-06-02T22:36:46.000000Z'
+                              admin_area1: ME
+                              admin_area2: null
+                              customer_id: 2
+                              postal_code: '89937'
+                              address_line1: 52800 Twila Trace
+                              address_line2: Suite 468
+                              address_line3: null
+                          shippable_id: 0
+                          shippable_type: 'Boxc::class'
+                          deleted_at: null
+                          created_at: '2020-06-02T22:36:46.000000Z'
+                          updated_at: '2020-06-02T22:36:46.000000Z'
+                      updated_at: '2020-06-02T22:36:46.000000Z'
+                      created_at: '2020-06-02T22:36:46.000000Z'
+      operationId: get-orders-id
+      description: Get single order
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Accept
+      tags:
+        - Orders
+    put:
+      summary: Update Order
+      operationId: put-orders-id
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: ../models/Order.v1.yaml
+      description: Update single order
+      tags:
+        - Orders
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ../models/Order-Create.v1.yaml
+            examples:
+              Example:
+                value:
+                  discount_amount: 50
+                  products:
+                    - id: 1
+                      quantity: 1
+                      billing_type: once
+        description: Update order using ID in string
+    delete:
+      summary: ''
+      operationId: delete-orders-id
+      responses:
+        '204':
+          description: No Content
+      description: Delete Order
+      tags:
+        - Orders
+  /payments:
+    get:
+      summary: Payments index
+      tags:
+        - Payments
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: ../models/Payment.v1.yaml
+                  meta:
+                    $ref: ../models/Index Pagination/Meta.v1.yaml
+                  links:
+                    $ref: ../models/Index Pagination/Links.v1.yaml
+      operationId: get-payments
+      description: Payments index
+  '/payments/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Get single payment
+      tags:
+        - Payments
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: ../models/Payment.v1.yaml
+      operationId: get-payments-id
+      description: Get single payment by ID
+  '/payments/{id}/refund':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: Refund Payment
+      tags:
+        - Payments
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  dsta:
+                    $ref: ../models/Payment.v1.yaml
+      operationId: post-payments-id-refund
+      description: 'Refund payment. '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: integer
+            examples:
+              Example:
+                value:
+                  refund_amount: 152
+          application/xml:
+            schema:
+              type: object
+              properties: {}
+        description: ''
+  '/orders/{id}/reship':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: Reship individual order
+      tags:
+        - Orders
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: ../models/Order.v1.yaml
+      operationId: post-orders-id-reship
+      description: Reship specified order
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                products:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      quantity:
+                        type: integer
+                shipping_service:
+                  type: integer
+        description: Specify products IDs and quantities
+components:
+  schemas: {}
+  securitySchemes:
+    ZHFhhHkXs8Co2hD6W6jlcYIsiF3v0YeesMj0dIe957m5bxc4qtZF6gJL3jfqnV0Q1FnXDNGwHbWqdGnO:
+      type: http
+      scheme: bearer
+      description: ''
+security:
+  - ZHFhhHkXs8Co2hD6W6jlcYIsiF3v0YeesMj0dIe957m5bxc4qtZF6gJL3jfqnV0Q1FnXDNGwHbWqdGnO: []

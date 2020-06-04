@@ -1,0 +1,28 @@
+title: Customer
+type: object
+properties:
+  id:
+    type: number
+  company_id:
+    type: number
+  first_name:
+    type: string
+  last_name:
+    type: string
+  email:
+    type: string
+  phone:
+    type: string
+  primary_billing_address_id:
+    type:
+      - string
+      - number
+  primary_shipping_address_id:
+    type: number
+  primary_payment_method_id:
+    type: number
+  created_at:
+    type: string
+  updated_at:
+    type: string
+description: Single Customer

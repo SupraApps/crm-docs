@@ -1,0 +1,27 @@
+title: Shipment
+type: object
+properties:
+  id:
+    type: integer
+  order_id:
+    type: string
+  shipment_processor_id:
+    type: string
+  status:
+    type: string
+  line_items:
+    type: string
+  carrier:
+    type: string
+  shipping_service:
+    type: string
+  tracking_number:
+    type: string
+  destination:
+    type: string
+    description: Will only contain one address
+  created_at:
+    type: string
+  updated_at:
+    type: string
+x-examples: {}

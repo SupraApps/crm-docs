@@ -1,0 +1,19 @@
+title: Links
+type: object
+x-tags:
+  - Pagination
+properties:
+  first:
+    type: string
+  last:
+    type: string
+  prev:
+    type: string
+  next:
+    type: string
+x-examples:
+  Example:
+    first: 'http://crm.test/api/v1/orders?page=1'
+    last: 'http://crm.test/api/v1/orders?page=2'
+    prev: null
+    next: 'http://crm.test/api/v1/orders?page=2'

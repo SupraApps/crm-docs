@@ -1,0 +1,27 @@
+title: Payment
+type: object
+description: Payment model
+properties:
+  id:
+    type: integer
+  company_id:
+    type: integer
+  order_id:
+    type: integer
+  payment_method_id:
+    type: integer
+  payment_processor_id:
+    type: integer
+  status:
+    type: string
+  billing_address:
+    type: string
+    description: Will only contain one address
+  amount:
+    type: string
+  refunded_amount:
+    type: string
+  created_at:
+    type: string
+  deleted_at:
+    type: string

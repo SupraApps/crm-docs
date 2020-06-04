@@ -1,0 +1,36 @@
+title: Order Create
+type: object
+x-tags:
+  - Orders
+properties:
+  customer_id:
+    type: integer
+  company_id:
+    type: integer
+  billing_address_id:
+    type: integer
+  shipping_address_id:
+    type: integer
+  payment_method_id:
+    type: integer
+  discount_amount:
+    type:
+      - string
+      - number
+  products:
+    type: object
+    required:
+      - id
+      - quantity
+      - billing_type
+    properties:
+      id:
+        type: integer
+      quantity:
+        type: integer
+      billing_type:
+        type: string
+      billing_schedule:
+        type: string
+required:
+  - products

@@ -1,0 +1,36 @@
+title: Order
+type: object
+description: Order Model
+properties:
+  id:
+    type: number
+  status:
+    type: string
+  customer_id:
+    type: number
+  company_id:
+    type: number
+  payment_method_id:
+    type: string
+  discount_amount:
+    type: string
+  tax:
+    type: string
+  total:
+    type: string
+  products:
+    type: array
+    items:
+      $ref: ./Product.v1.yaml
+  payments:
+    type: array
+    items:
+      $ref: ./Payment.v1.yaml
+  shipments:
+    type: array
+    items:
+      $ref: ./Shipment.v1.yaml
+  created_at:
+    type: string
+  updated_at:
+    type: string

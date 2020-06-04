@@ -1,0 +1,43 @@
+title: Product
+type: object
+properties:
+  id:
+    type: integer
+  company_id:
+    type: string
+  name:
+    type: string
+  price:
+    type: string
+  sku:
+    type: string
+  taxable:
+    type:
+      - number
+      - boolean
+  shippable:
+    type:
+      - integer
+      - boolean
+  categories:
+    type: array
+    items:
+      type: string
+  weight:
+    type: integer
+  height:
+    type: integer
+  width:
+    type: integer
+  depth:
+    type: integer
+  created_at:
+    type: string
+  updated_at:
+    type: string
+  quantity:
+    type: integer
+  billing_type:
+    type: string
+  billing_schedule:
+    type: string
