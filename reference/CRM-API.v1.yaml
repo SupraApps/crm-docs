@@ -4,6 +4,7 @@ tags:
   - name: Customers
   - name: Orders
   - name: Payments
+  - name: Addresses
 info:
   title: CRM-API
   version: '1.0'
@@ -3387,6 +3388,56 @@ paths:
                 shipping_service:
                   type: integer
         description: Specify products IDs and quantities
+  '/addresses/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Get single address
+      tags:
+        - Addresses
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: ../models/Address.v1.yaml
+      operationId: get-addresses-id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      description: Get address
+    put:
+      summary: Update address
+      tags:
+        - Addresses
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: ../models/Address.v1.yaml
+          headers: {}
+      operationId: put-addresses-id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ../models/Address.v1.yaml
+      description: Update Address
 components:
   schemas: {}
   securitySchemes:

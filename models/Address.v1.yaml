@@ -1,0 +1,23 @@
+title: Address
+type: object
+properties:
+  id:
+    type: integer
+  customer_id:
+    type: string
+  company_id:
+    type: string
+  address_line1:
+    type: string
+  address_line2:
+    type: string
+  address_line3:
+    type: string
+  city:
+    type: string
+  admin_area1:
+    type: string
+    description: State or province
+  country:
+    type: string
+    description: ISO 3166-1 Alpha-2

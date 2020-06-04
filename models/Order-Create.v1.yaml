@@ -18,19 +18,21 @@ properties:
       - string
       - number
   products:
-    type: object
-    required:
-      - id
-      - quantity
-      - billing_type
-    properties:
-      id:
-        type: integer
-      quantity:
-        type: integer
-      billing_type:
-        type: string
-      billing_schedule:
-        type: string
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: integer
+        quantity:
+          type: integer
+        billing_type:
+          type: string
+        billing_schedule:
+          type: string
+      required:
+        - id
+        - quantity
+        - billing_type
 required:
   - products
