@@ -132,6 +132,27 @@ paths:
           in: header
           description: ''
       description: Get single customer
+    post:
+      summary: ''
+      operationId: post-customers
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    allOf:
+                      - $ref: ../models/Customer.v1.yaml
+                      - $ref: ../models/Extras/ExistanceData.v1.yaml
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ../models/Customer.v1.yaml
+      description: Create customer
   /orders:
     get:
       summary: Get orders index
@@ -3948,6 +3969,266 @@ paths:
             schema:
               $ref: ../models/Address.v1.yaml
       description: Update Address
+    delete:
+      summary: ''
+      operationId: delete-addresses-id
+      responses:
+        '204':
+          description: No Content
+      description: Delete single address
+  /addresses:
+    get:
+      summary: Get addresses index
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      allOf:
+                        - $ref: ../models/Address.v1.yaml
+                        - $ref: ../models/Extras/ExistanceData.v1.yaml
+              examples:
+                Example:
+                  value:
+                    data:
+                      - id: 1
+                        customer_id: 1
+                        company_id: 1
+                        address_line1: 74292 Jared Ramp Apt. 447
+                        address_line2: Suite 134
+                        address_line3: null
+                        city: South Orvalbury
+                        admin_area1: KS
+                        admin_area2: null
+                        postal_code: '11297'
+                        country: US
+                        created_at: '2020-06-08T03:39:43.000000Z'
+                        updated_at: '2020-06-08T03:39:43.000000Z'
+                      - id: 2
+                        customer_id: 1
+                        company_id: 1
+                        address_line1: 50283 Yessenia Lake Apt. 314
+                        address_line2: Suite 720
+                        address_line3: null
+                        city: West Magdalen
+                        admin_area1: WV
+                        admin_area2: null
+                        postal_code: '64404'
+                        country: US
+                        created_at: '2020-06-08T03:39:43.000000Z'
+                        updated_at: '2020-06-08T03:39:43.000000Z'
+                      - id: 3
+                        customer_id: 1
+                        company_id: 1
+                        address_line1: 924 Jaquan Track Apt. 477
+                        address_line2: Suite 500
+                        address_line3: null
+                        city: Schuppeborough
+                        admin_area1: NY
+                        admin_area2: null
+                        postal_code: 86676-5200
+                        country: US
+                        created_at: '2020-06-08T03:39:43.000000Z'
+                        updated_at: '2020-06-08T03:39:43.000000Z'
+                      - id: 4
+                        customer_id: 1
+                        company_id: 1
+                        address_line1: 94091 Jordyn Via Apt. 603
+                        address_line2: Suite 738
+                        address_line3: null
+                        city: Parkerburgh
+                        admin_area1: FL
+                        admin_area2: null
+                        postal_code: '82453'
+                        country: US
+                        created_at: '2020-06-08T03:39:43.000000Z'
+                        updated_at: '2020-06-08T03:39:43.000000Z'
+                      - id: 5
+                        customer_id: 2
+                        company_id: 1
+                        address_line1: 6248 Runte Key
+                        address_line2: Suite 142
+                        address_line3: null
+                        city: South Darbyberg
+                        admin_area1: MO
+                        admin_area2: null
+                        postal_code: '49779'
+                        country: US
+                        created_at: '2020-06-08T03:39:43.000000Z'
+                        updated_at: '2020-06-08T03:39:43.000000Z'
+                      - id: 6
+                        customer_id: 2
+                        company_id: 1
+                        address_line1: 894 Allie Corners
+                        address_line2: Apt. 390
+                        address_line3: null
+                        city: Evebury
+                        admin_area1: MD
+                        admin_area2: null
+                        postal_code: 63269-0105
+                        country: US
+                        created_at: '2020-06-08T03:39:43.000000Z'
+                        updated_at: '2020-06-08T03:39:43.000000Z'
+                      - id: 7
+                        customer_id: 2
+                        company_id: 1
+                        address_line1: 295 Marquardt Via Apt. 784
+                        address_line2: Apt. 941
+                        address_line3: null
+                        city: Lake Elliemouth
+                        admin_area1: HI
+                        admin_area2: null
+                        postal_code: '34498'
+                        country: US
+                        created_at: '2020-06-08T03:39:43.000000Z'
+                        updated_at: '2020-06-08T03:39:43.000000Z'
+                      - id: 8
+                        customer_id: 2
+                        company_id: 1
+                        address_line1: 983 Ernser Union
+                        address_line2: Suite 717
+                        address_line3: null
+                        city: Eichmannchester
+                        admin_area1: AL
+                        admin_area2: null
+                        postal_code: '12410'
+                        country: US
+                        created_at: '2020-06-08T03:39:43.000000Z'
+                        updated_at: '2020-06-08T03:39:43.000000Z'
+                      - id: 9
+                        customer_id: 3
+                        company_id: 1
+                        address_line1: 2654 Cortez Roads Suite 494
+                        address_line2: Apt. 662
+                        address_line3: null
+                        city: Beierchester
+                        admin_area1: MA
+                        admin_area2: null
+                        postal_code: 52950-5196
+                        country: US
+                        created_at: '2020-06-08T03:39:43.000000Z'
+                        updated_at: '2020-06-08T03:39:43.000000Z'
+                      - id: 10
+                        customer_id: 3
+                        company_id: 1
+                        address_line1: 24916 Violet Flats
+                        address_line2: Suite 171
+                        address_line3: null
+                        city: South Alannaberg
+                        admin_area1: ME
+                        admin_area2: null
+                        postal_code: '52725'
+                        country: US
+                        created_at: '2020-06-08T03:39:43.000000Z'
+                        updated_at: '2020-06-08T03:39:43.000000Z'
+                      - id: 11
+                        customer_id: 3
+                        company_id: 1
+                        address_line1: 2322 Homenick Forge
+                        address_line2: Suite 363
+                        address_line3: null
+                        city: Cindytown
+                        admin_area1: NJ
+                        admin_area2: null
+                        postal_code: 47641-1088
+                        country: US
+                        created_at: '2020-06-08T03:39:43.000000Z'
+                        updated_at: '2020-06-08T03:39:43.000000Z'
+                      - id: 12
+                        customer_id: 3
+                        company_id: 1
+                        address_line1: 2015 Rice Club
+                        address_line2: Suite 678
+                        address_line3: null
+                        city: Port Brayanmouth
+                        admin_area1: AK
+                        admin_area2: null
+                        postal_code: 85007-7413
+                        country: US
+                        created_at: '2020-06-08T03:39:43.000000Z'
+                        updated_at: '2020-06-08T03:39:43.000000Z'
+                      - id: 13
+                        customer_id: 4
+                        company_id: 1
+                        address_line1: 73013 Baron Rapid Apt. 342
+                        address_line2: Suite 524
+                        address_line3: null
+                        city: East Claudieburgh
+                        admin_area1: WY
+                        admin_area2: null
+                        postal_code: '21453'
+                        country: US
+                        created_at: '2020-06-08T03:39:43.000000Z'
+                        updated_at: '2020-06-08T03:39:43.000000Z'
+                      - id: 14
+                        customer_id: 4
+                        company_id: 1
+                        address_line1: 584 Emmy Forges
+                        address_line2: Suite 634
+                        address_line3: null
+                        city: Lake Vada
+                        admin_area1: MI
+                        admin_area2: null
+                        postal_code: 93716-5056
+                        country: US
+                        created_at: '2020-06-08T03:39:43.000000Z'
+                        updated_at: '2020-06-08T03:39:43.000000Z'
+                      - id: 15
+                        customer_id: 4
+                        company_id: 1
+                        address_line1: 452 Bradtke Islands
+                        address_line2: Suite 585
+                        address_line3: null
+                        city: Bogisichton
+                        admin_area1: NY
+                        admin_area2: null
+                        postal_code: '12375'
+                        country: US
+                        created_at: '2020-06-08T03:39:43.000000Z'
+                        updated_at: '2020-06-08T03:39:43.000000Z'
+                    links:
+                      first: 'http://crm.test/api/v1/addresses?page=1'
+                      last: 'http://crm.test/api/v1/addresses?page=6'
+                      prev: null
+                      next: 'http://crm.test/api/v1/addresses?page=2'
+                    meta:
+                      current_page: 1
+                      from: 1
+                      last_page: 6
+                      path: 'http://crm.test/api/v1/addresses'
+                      per_page: 15
+                      to: 15
+                      total: 80
+      operationId: get-addresses
+      description: Get all addresses
+    post:
+      summary: ''
+      operationId: post-addresses
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    allOf:
+                      - $ref: ../models/Address.v1.yaml
+                      - $ref: ../models/Extras/ExistanceData.v1.yaml
+      description: Create address
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ../models/Address.v1.yaml
 components:
   schemas: {}
   securitySchemes:
