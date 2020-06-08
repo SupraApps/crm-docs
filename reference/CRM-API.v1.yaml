@@ -25,7 +25,7 @@ paths:
         in: path
         required: true
     get:
-      summary: Get One Customer
+      summary: Get Single Customer
       tags:
         - Customers
       responses:
@@ -59,7 +59,7 @@ paths:
       parameters: []
       description: Get single customer
     put:
-      summary: ''
+      summary: Update Customer
       operationId: put-customers-id
       responses:
         '200':
@@ -98,7 +98,7 @@ paths:
       tags:
         - Customers
     delete:
-      summary: ''
+      summary: Delete Customer
       operationId: delete-customers-id
       responses:
         '204':
@@ -157,7 +157,7 @@ paths:
         - Customers
   /orders:
     get:
-      summary: Get orders index
+      summary: Get Orders Index
       tags:
         - Orders
       responses:
@@ -3330,7 +3330,7 @@ paths:
                       billing_type: once
         description: Update order using ID in string
     delete:
-      summary: ''
+      summary: Delete Order
       operationId: delete-orders-id
       responses:
         '204':
@@ -3340,7 +3340,7 @@ paths:
         - Orders
   /payments:
     get:
-      summary: Payments index
+      summary: Get Payments Index
       tags:
         - Payments
       responses:
@@ -3759,7 +3759,7 @@ paths:
         in: path
         required: true
     get:
-      summary: Get single payment
+      summary: Get Single Payment
       tags:
         - Payments
       responses:
@@ -3925,7 +3925,7 @@ paths:
         in: path
         required: true
     get:
-      summary: Get single address
+      summary: Get Single Address
       tags:
         - Addresses
       responses:
@@ -3948,7 +3948,7 @@ paths:
               type: object
       description: Get address
     put:
-      summary: Update address
+      summary: Update Address
       tags:
         - Addresses
       responses:
@@ -3982,8 +3982,9 @@ paths:
         - Addresses
   /addresses:
     get:
-      summary: Get addresses index
-      tags: []
+      summary: Get Addresses Index
+      tags:
+        - Addresses
       responses:
         '200':
           description: OK
