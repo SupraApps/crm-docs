@@ -1,8 +1,7 @@
 title: Customer
 type: object
+description: Single Customer
 properties:
-  id:
-    type: number
   company_id:
     type: number
   first_name:
@@ -21,8 +20,3 @@ properties:
     type: number
   primary_payment_method_id:
     type: number
-  created_at:
-    type: string
-  updated_at:
-    type: string
-description: Single Customer

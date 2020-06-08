@@ -20,7 +20,7 @@ paths:
   '/customers/{id}':
     parameters:
       - schema:
-          type: string
+          type: number
         name: id
         in: path
         required: true
@@ -37,7 +37,9 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: ../models/Customer.v1.yaml
+                    allOf:
+                      - $ref: ../models/Customer.v1.yaml
+                      - $ref: ../models/Extras/ExistanceData.v1.yaml
               examples:
                 Example:
                   value:
@@ -56,6 +58,54 @@ paths:
       operationId: get-customers-id
       parameters: []
       description: Get single customer
+    put:
+      summary: ''
+      operationId: put-customers-id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    allOf:
+                      - $ref: ../models/Customer.v1.yaml
+                      - $ref: ../models/Extras/ExistanceData.v1.yaml
+              examples:
+                Example:
+                  value:
+                    data:
+                      id: 1
+                      company_id: 1
+                      first_name: Eugene
+                      last_name: Gulgowski
+                      email: barrett47@example.org
+                      phone: null
+                      primary_billing_address_id: 2
+                      primary_shipping_address_id: 3
+                      primary_payment_method_id: 1
+                      created_at: '2020-06-02T22:36:45.000000Z'
+                      updated_at: '2020-06-02T22:36:46.000000Z'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ../models/Customer.v1.yaml
+        description: ''
+      description: Update customer
+      tags:
+        - Customers
+    delete:
+      summary: ''
+      operationId: delete-customers-id
+      responses:
+        '204':
+          description: No Content
+      tags:
+        - Customers
+      description: Delete single customer
   /customers:
     get:
       summary: Get Customers Index
@@ -72,7 +122,9 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: ../models/Customer.v1.yaml
+                      allOf:
+                        - $ref: ../models/Customer.v1.yaml
+                        - $ref: ../models/Extras/ExistanceData.v1.yaml
       operationId: get-customers
       parameters:
         - schema:
@@ -3004,7 +3056,7 @@ paths:
   '/orders/{id}':
     parameters:
       - schema:
-          type: string
+          type: number
         name: id
         in: path
         required: true
@@ -3282,12 +3334,404 @@ paths:
                     $ref: ../models/Index Pagination/Meta.v1.yaml
                   links:
                     $ref: ../models/Index Pagination/Links.v1.yaml
+              examples:
+                Example:
+                  value:
+                    data:
+                      - id: 1
+                        company_id: 1
+                        order_id: 1
+                        payment_method_id: 3
+                        payment_processor_id: 1
+                        status: pending
+                        billing_address:
+                          - id: 11
+                            city: Cindytown
+                            country: US
+                            company_id: 1
+                            created_at: '2020-06-08T03:39:43.000000Z'
+                            updated_at: '2020-06-08T03:39:43.000000Z'
+                            admin_area1: NJ
+                            admin_area2: null
+                            customer_id: 3
+                            postal_code: 47641-1088
+                            address_line1: 2322 Homenick Forge
+                            address_line2: Suite 363
+                            address_line3: null
+                        amount: '5780.25'
+                        refunded_amount: '0.00'
+                        deleted_at: null
+                        created_at: '2020-06-08T03:39:43.000000Z'
+                        updated_at: '2020-06-08T03:39:43.000000Z'
+                      - id: 2
+                        company_id: 1
+                        order_id: 2
+                        payment_method_id: 1
+                        payment_processor_id: 1
+                        status: pending
+                        billing_address:
+                          - id: 2
+                            city: West Magdalen
+                            country: US
+                            company_id: 1
+                            created_at: '2020-06-08T03:39:43.000000Z'
+                            updated_at: '2020-06-08T03:39:43.000000Z'
+                            admin_area1: WV
+                            admin_area2: null
+                            customer_id: 1
+                            postal_code: '64404'
+                            address_line1: 50283 Yessenia Lake Apt. 314
+                            address_line2: Suite 720
+                            address_line3: null
+                        amount: '4580.88'
+                        refunded_amount: '0.00'
+                        deleted_at: null
+                        created_at: '2020-06-08T03:39:43.000000Z'
+                        updated_at: '2020-06-08T03:39:43.000000Z'
+                      - id: 3
+                        company_id: 1
+                        order_id: 3
+                        payment_method_id: 8
+                        payment_processor_id: 1
+                        status: pending
+                        billing_address:
+                          - id: 30
+                            city: Juliusland
+                            country: US
+                            company_id: 1
+                            created_at: '2020-06-08T03:39:43.000000Z'
+                            updated_at: '2020-06-08T03:39:43.000000Z'
+                            admin_area1: MO
+                            admin_area2: null
+                            customer_id: 8
+                            postal_code: 31204-1626
+                            address_line1: 72901 Stehr Rue Suite 203
+                            address_line2: Suite 880
+                            address_line3: null
+                        amount: '3780.18'
+                        refunded_amount: '0.00'
+                        deleted_at: null
+                        created_at: '2020-06-08T03:39:44.000000Z'
+                        updated_at: '2020-06-08T03:39:44.000000Z'
+                      - id: 4
+                        company_id: 1
+                        order_id: 4
+                        payment_method_id: 7
+                        payment_processor_id: 1
+                        status: pending
+                        billing_address:
+                          - id: 26
+                            city: Vonmouth
+                            country: US
+                            company_id: 1
+                            created_at: '2020-06-08T03:39:43.000000Z'
+                            updated_at: '2020-06-08T03:39:43.000000Z'
+                            admin_area1: NC
+                            admin_area2: null
+                            customer_id: 7
+                            postal_code: 05371-4164
+                            address_line1: 5199 Deanna Branch Apt. 155
+                            address_line2: Suite 399
+                            address_line3: null
+                        amount: '3039.02'
+                        refunded_amount: '0.00'
+                        deleted_at: null
+                        created_at: '2020-06-08T03:39:44.000000Z'
+                        updated_at: '2020-06-08T03:39:44.000000Z'
+                      - id: 5
+                        company_id: 1
+                        order_id: 5
+                        payment_method_id: 3
+                        payment_processor_id: 1
+                        status: pending
+                        billing_address:
+                          - id: 9
+                            city: Beierchester
+                            country: US
+                            company_id: 1
+                            created_at: '2020-06-08T03:39:43.000000Z'
+                            updated_at: '2020-06-08T03:39:43.000000Z'
+                            admin_area1: MA
+                            admin_area2: null
+                            customer_id: 3
+                            postal_code: 52950-5196
+                            address_line1: 2654 Cortez Roads Suite 494
+                            address_line2: Apt. 662
+                            address_line3: null
+                        amount: '4890.24'
+                        refunded_amount: '0.00'
+                        deleted_at: null
+                        created_at: '2020-06-08T03:39:44.000000Z'
+                        updated_at: '2020-06-08T03:39:44.000000Z'
+                      - id: 6
+                        company_id: 1
+                        order_id: 6
+                        payment_method_id: 6
+                        payment_processor_id: 1
+                        status: pending
+                        billing_address:
+                          - id: 22
+                            city: South Theodorechester
+                            country: US
+                            company_id: 1
+                            created_at: '2020-06-08T03:39:43.000000Z'
+                            updated_at: '2020-06-08T03:39:43.000000Z'
+                            admin_area1: NV
+                            admin_area2: null
+                            customer_id: 6
+                            postal_code: '80692'
+                            address_line1: 95775 Vanessa Parkways
+                            address_line2: Apt. 831
+                            address_line3: null
+                        amount: '2268.09'
+                        refunded_amount: '0.00'
+                        deleted_at: null
+                        created_at: '2020-06-08T03:39:44.000000Z'
+                        updated_at: '2020-06-08T03:39:44.000000Z'
+                      - id: 7
+                        company_id: 1
+                        order_id: 7
+                        payment_method_id: 3
+                        payment_processor_id: 1
+                        status: pending
+                        billing_address:
+                          - id: 11
+                            city: Cindytown
+                            country: US
+                            company_id: 1
+                            created_at: '2020-06-08T03:39:43.000000Z'
+                            updated_at: '2020-06-08T03:39:43.000000Z'
+                            admin_area1: NJ
+                            admin_area2: null
+                            customer_id: 3
+                            postal_code: 47641-1088
+                            address_line1: 2322 Homenick Forge
+                            address_line2: Suite 363
+                            address_line3: null
+                        amount: '4580.88'
+                        refunded_amount: '0.00'
+                        deleted_at: null
+                        created_at: '2020-06-08T03:39:44.000000Z'
+                        updated_at: '2020-06-08T03:39:44.000000Z'
+                      - id: 8
+                        company_id: 1
+                        order_id: 8
+                        payment_method_id: 9
+                        payment_processor_id: 1
+                        status: pending
+                        billing_address:
+                          - id: 34
+                            city: Runolfssonland
+                            country: US
+                            company_id: 1
+                            created_at: '2020-06-08T03:39:43.000000Z'
+                            updated_at: '2020-06-08T03:39:43.000000Z'
+                            admin_area1: MT
+                            admin_area2: null
+                            customer_id: 9
+                            postal_code: '63400'
+                            address_line1: 336 Jules Greens Suite 472
+                            address_line2: Apt. 765
+                            address_line3: null
+                        amount: '6551.18'
+                        refunded_amount: '0.00'
+                        deleted_at: null
+                        created_at: '2020-06-08T03:39:44.000000Z'
+                        updated_at: '2020-06-08T03:39:44.000000Z'
+                      - id: 9
+                        company_id: 1
+                        order_id: 9
+                        payment_method_id: 10
+                        payment_processor_id: 1
+                        status: pending
+                        billing_address:
+                          - id: 39
+                            city: Verlafurt
+                            country: US
+                            company_id: 1
+                            created_at: '2020-06-08T03:39:43.000000Z'
+                            updated_at: '2020-06-08T03:39:43.000000Z'
+                            admin_area1: GA
+                            admin_area2: null
+                            customer_id: 10
+                            postal_code: '20778'
+                            address_line1: 30369 Quitzon Island
+                            address_line2: Suite 340
+                            address_line3: null
+                        amount: '3541.93'
+                        refunded_amount: '0.00'
+                        deleted_at: null
+                        created_at: '2020-06-08T03:39:44.000000Z'
+                        updated_at: '2020-06-08T03:39:44.000000Z'
+                      - id: 10
+                        company_id: 1
+                        order_id: 10
+                        payment_method_id: 3
+                        payment_processor_id: 1
+                        status: pending
+                        billing_address:
+                          - id: 11
+                            city: Cindytown
+                            country: US
+                            company_id: 1
+                            created_at: '2020-06-08T03:39:43.000000Z'
+                            updated_at: '2020-06-08T03:39:43.000000Z'
+                            admin_area1: NJ
+                            admin_area2: null
+                            customer_id: 3
+                            postal_code: 47641-1088
+                            address_line1: 2322 Homenick Forge
+                            address_line2: Suite 363
+                            address_line3: null
+                        amount: '5854.72'
+                        refunded_amount: '0.00'
+                        deleted_at: null
+                        created_at: '2020-06-08T03:39:44.000000Z'
+                        updated_at: '2020-06-08T03:39:44.000000Z'
+                      - id: 11
+                        company_id: 1
+                        order_id: 11
+                        payment_method_id: 1
+                        payment_processor_id: 1
+                        status: pending
+                        billing_address:
+                          - id: 3
+                            city: Schuppeborough
+                            country: US
+                            company_id: 1
+                            created_at: '2020-06-08T03:39:43.000000Z'
+                            updated_at: '2020-06-08T03:39:43.000000Z'
+                            admin_area1: NY
+                            admin_area2: null
+                            customer_id: 1
+                            postal_code: 86676-5200
+                            address_line1: 924 Jaquan Track Apt. 477
+                            address_line2: Suite 500
+                            address_line3: null
+                        amount: '5750.48'
+                        refunded_amount: '0.00'
+                        deleted_at: null
+                        created_at: '2020-06-08T03:39:44.000000Z'
+                        updated_at: '2020-06-08T03:39:44.000000Z'
+                      - id: 12
+                        company_id: 1
+                        order_id: 12
+                        payment_method_id: 7
+                        payment_processor_id: 1
+                        status: pending
+                        billing_address:
+                          - id: 25
+                            city: Joyhaven
+                            country: US
+                            company_id: 1
+                            created_at: '2020-06-08T03:39:43.000000Z'
+                            updated_at: '2020-06-08T03:39:43.000000Z'
+                            admin_area1: HI
+                            admin_area2: null
+                            customer_id: 7
+                            postal_code: 66856-5437
+                            address_line1: 744 Korbin Coves
+                            address_line2: Apt. 220
+                            address_line3: null
+                        amount: '5009.32'
+                        refunded_amount: '0.00'
+                        deleted_at: null
+                        created_at: '2020-06-08T03:39:44.000000Z'
+                        updated_at: '2020-06-08T03:39:44.000000Z'
+                      - id: 13
+                        company_id: 1
+                        order_id: 13
+                        payment_method_id: 6
+                        payment_processor_id: 1
+                        status: pending
+                        billing_address:
+                          - id: 21
+                            city: Satterfieldview
+                            country: US
+                            company_id: 1
+                            created_at: '2020-06-08T03:39:43.000000Z'
+                            updated_at: '2020-06-08T03:39:43.000000Z'
+                            admin_area1: NH
+                            admin_area2: null
+                            customer_id: 6
+                            postal_code: 98258-2659
+                            address_line1: 366 Verner Mews Apt. 663
+                            address_line2: Apt. 483
+                            address_line3: null
+                        amount: '3437.69'
+                        refunded_amount: '0.00'
+                        deleted_at: null
+                        created_at: '2020-06-08T03:39:44.000000Z'
+                        updated_at: '2020-06-08T03:39:44.000000Z'
+                      - id: 14
+                        company_id: 1
+                        order_id: 14
+                        payment_method_id: 3
+                        payment_processor_id: 1
+                        status: pending
+                        billing_address:
+                          - id: 11
+                            city: Cindytown
+                            country: US
+                            company_id: 1
+                            created_at: '2020-06-08T03:39:43.000000Z'
+                            updated_at: '2020-06-08T03:39:43.000000Z'
+                            admin_area1: NJ
+                            admin_area2: null
+                            customer_id: 3
+                            postal_code: 47641-1088
+                            address_line1: 2322 Homenick Forge
+                            address_line2: Suite 363
+                            address_line3: null
+                        amount: '3482.39'
+                        refunded_amount: '0.00'
+                        deleted_at: null
+                        created_at: '2020-06-08T03:39:44.000000Z'
+                        updated_at: '2020-06-08T03:39:44.000000Z'
+                      - id: 15
+                        company_id: 1
+                        order_id: 15
+                        payment_method_id: 10
+                        payment_processor_id: 1
+                        status: pending
+                        billing_address:
+                          - id: 40
+                            city: North Hendersonside
+                            country: US
+                            company_id: 1
+                            created_at: '2020-06-08T03:39:43.000000Z'
+                            updated_at: '2020-06-08T03:39:43.000000Z'
+                            admin_area1: VA
+                            admin_area2: null
+                            customer_id: 10
+                            postal_code: 47548-6216
+                            address_line1: 933 Madyson Ridges
+                            address_line2: Apt. 533
+                            address_line3: null
+                        amount: '3437.69'
+                        refunded_amount: '0.00'
+                        deleted_at: null
+                        created_at: '2020-06-08T03:39:45.000000Z'
+                        updated_at: '2020-06-08T03:39:45.000000Z'
+                    links:
+                      first: 'http://crm.test/api/v1/payments?page=1'
+                      last: 'http://crm.test/api/v1/payments?page=2'
+                      prev: null
+                      next: 'http://crm.test/api/v1/payments?page=2'
+                    meta:
+                      current_page: 1
+                      from: 1
+                      last_page: 2
+                      path: 'http://crm.test/api/v1/payments'
+                      per_page: 15
+                      to: 15
+                      total: 30
       operationId: get-payments
       description: Payments index
   '/payments/{id}':
     parameters:
       - schema:
-          type: string
+          type: number
         name: id
         in: path
         required: true
@@ -3305,12 +3749,41 @@ paths:
                 properties:
                   data:
                     $ref: ../models/Payment.v1.yaml
+              examples:
+                Example:
+                  value:
+                    data:
+                      id: 1
+                      company_id: 1
+                      order_id: 1
+                      payment_method_id: 3
+                      payment_processor_id: 1
+                      status: pending
+                      billing_address:
+                        - id: 11
+                          city: Cindytown
+                          country: US
+                          company_id: 1
+                          created_at: '2020-06-08T03:39:43.000000Z'
+                          updated_at: '2020-06-08T03:39:43.000000Z'
+                          admin_area1: NJ
+                          admin_area2: null
+                          customer_id: 3
+                          postal_code: 47641-1088
+                          address_line1: 2322 Homenick Forge
+                          address_line2: Suite 363
+                          address_line3: null
+                      amount: '5780.25'
+                      refunded_amount: '0.00'
+                      deleted_at: null
+                      created_at: '2020-06-08T03:39:43.000000Z'
+                      updated_at: '2020-06-08T03:39:43.000000Z'
       operationId: get-payments-id
       description: Get single payment by ID
   '/payments/{id}/refund':
     parameters:
       - schema:
-          type: string
+          type: number
         name: id
         in: path
         required: true
@@ -3328,8 +3801,37 @@ paths:
                 properties:
                   dsta:
                     $ref: ../models/Payment.v1.yaml
+              examples:
+                Example:
+                  value:
+                    data:
+                      id: 1
+                      company_id: 1
+                      order_id: 1
+                      payment_method_id: 3
+                      payment_processor_id: 1
+                      status: fully_refunded
+                      billing_address:
+                        - id: 11
+                          city: Cindytown
+                          country: US
+                          company_id: 1
+                          created_at: '2020-06-08T03:39:43.000000Z'
+                          updated_at: '2020-06-08T03:39:43.000000Z'
+                          admin_area1: NJ
+                          admin_area2: null
+                          customer_id: 3
+                          postal_code: 47641-1088
+                          address_line1: 2322 Homenick Forge
+                          address_line2: Suite 363
+                          address_line3: null
+                      amount: '5780.25'
+                      refunded_amount: '5780.25'
+                      deleted_at: null
+                      created_at: '2020-06-08T03:39:43.000000Z'
+                      updated_at: '2020-06-08T03:39:43.000000Z'
       operationId: post-payments-id-refund
-      description: 'Refund payment. '
+      description: Refund payment
       requestBody:
         content:
           application/json:
@@ -3337,7 +3839,10 @@ paths:
               type: object
               properties:
                 amount:
-                  type: integer
+                  type:
+                    - integer
+                    - 'null'
+                  description: Amount in cents
             examples:
               Example:
                 value:
@@ -3346,11 +3851,11 @@ paths:
             schema:
               type: object
               properties: {}
-        description: ''
+        description: Leave amount null to full refund or pass amount in cents
   '/orders/{id}/reship':
     parameters:
       - schema:
-          type: string
+          type: number
         name: id
         in: path
         required: true
@@ -3387,11 +3892,12 @@ paths:
                         type: integer
                 shipping_service:
                   type: integer
+            examples: {}
         description: Specify products IDs and quantities
   '/addresses/{id}':
     parameters:
       - schema:
-          type: string
+          type: number
         name: id
         in: path
         required: true
@@ -3408,7 +3914,9 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: ../models/Address.v1.yaml
+                    allOf:
+                      - $ref: ../models/Address.v1.yaml
+                      - $ref: ../models/Extras/ExistanceData.v1.yaml
       operationId: get-addresses-id
       requestBody:
         content:
@@ -3429,7 +3937,9 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: ../models/Address.v1.yaml
+                    allOf:
+                      - $ref: ../models/Address.v1.yaml
+                      - $ref: ../models/Extras/ExistanceData.v1.yaml
           headers: {}
       operationId: put-addresses-id
       requestBody:
