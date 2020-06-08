@@ -1,9 +1,9 @@
-title: MetaData
+title: Existance Data
 type: object
 properties:
   id:
     type: string
   created_at:
     type: string
-  deleted_at:
+  updated_at:
     type: string
