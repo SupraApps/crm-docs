@@ -133,7 +133,7 @@ paths:
           description: ''
       description: Get single customer
     post:
-      summary: ''
+      summary: Create Customer
       operationId: post-customers
       responses:
         '201':
@@ -153,6 +153,8 @@ paths:
             schema:
               $ref: ../models/Customer.v1.yaml
       description: Create customer
+      tags:
+        - Customers
   /orders:
     get:
       summary: Get orders index
@@ -3970,12 +3972,14 @@ paths:
               $ref: ../models/Address.v1.yaml
       description: Update Address
     delete:
-      summary: ''
+      summary: Delete Address
       operationId: delete-addresses-id
       responses:
         '204':
           description: No Content
       description: Delete single address
+      tags:
+        - Addresses
   /addresses:
     get:
       summary: Get addresses index
@@ -4209,7 +4213,7 @@ paths:
       operationId: get-addresses
       description: Get all addresses
     post:
-      summary: ''
+      summary: Create Address
       operationId: post-addresses
       responses:
         '201':
@@ -4229,6 +4233,8 @@ paths:
           application/json:
             schema:
               $ref: ../models/Address.v1.yaml
+      tags:
+        - Addresses
 components:
   schemas: {}
   securitySchemes:
