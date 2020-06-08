@@ -4,19 +4,22 @@ description: Single Customer
 properties:
   company_id:
     type: number
+    minimum: 0
   first_name:
     type: string
   last_name:
     type: string
   email:
     type: string
+    format: email
   phone:
     type: string
   primary_billing_address_id:
-    type:
-      - string
-      - number
+    type: number
+    minimum: 0
   primary_shipping_address_id:
     type: number
+    minimum: 0
   primary_payment_method_id:
     type: number
+    minimum: 0

@@ -126,11 +126,7 @@ paths:
                         - $ref: ../models/Customer.v1.yaml
                         - $ref: ../models/Extras/ExistanceData.v1.yaml
       operationId: get-customers
-      parameters:
-        - schema:
-            type: string
-          in: header
-          description: ''
+      parameters: []
       description: Get single customer
     post:
       summary: Create Customer

@@ -4,14 +4,19 @@ description: Payment model
 properties:
   id:
     type: integer
+    minimum: 0
   company_id:
     type: integer
+    minimum: 0
   order_id:
     type: integer
+    minimum: 0
   payment_method_id:
     type: integer
+    minimum: 0
   payment_processor_id:
     type: integer
+    minimum: 0
   status:
     type: string
   billing_address:
@@ -23,5 +28,7 @@ properties:
     type: string
   created_at:
     type: string
+    format: date-time
   deleted_at:
     type: string
+    format: date-time

@@ -1,12 +1,15 @@
-title: Shipment
 type: object
+title: Shipment
 properties:
   id:
     type: integer
+    minimum: 0
   order_id:
-    type: string
+    type: integer
+    minimum: 0
   shipment_processor_id:
-    type: string
+    type: integer
+    minimum: 0
   status:
     type: string
   line_items:
@@ -24,4 +27,3 @@ properties:
     type: string
   updated_at:
     type: string
-x-examples: {}
