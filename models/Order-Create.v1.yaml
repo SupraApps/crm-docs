@@ -22,6 +22,14 @@ properties:
   discount_amount:
     type: integer
     minimum: 0
+  shipping_service:
+    type: string
+  shipping_amount:
+    type: number
+    format: float
+    minimum: 0
+    example: 0
+    default: 0
   products:
     type: array
     items:
