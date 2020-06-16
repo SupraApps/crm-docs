@@ -20,8 +20,7 @@ properties:
   status:
     type: string
   billing_address:
-    type: string
-    description: Will only contain one address
+    $ref: ./Address.v1.yaml
   amount:
     type: string
   refunded_amount:
