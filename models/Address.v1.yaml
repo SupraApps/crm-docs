@@ -2,9 +2,11 @@ title: Address
 type: object
 properties:
   customer_id:
-    type: string
+    type: integer
+    minimum: 0
   company_id:
-    type: string
+    type: number
+    minimum: 0
   address_line1:
     type: string
   address_line2:

@@ -56,7 +56,11 @@ paths:
                       created_at: '2020-06-02T22:36:45.000000Z'
                       updated_at: '2020-06-02T22:36:46.000000Z'
       operationId: get-customers-id
-      parameters: []
+      parameters:
+        - schema:
+            type: boolean
+          in: query
+          name: with_full_order
       description: Get single customer
     put:
       summary: Update Customer
@@ -126,11 +130,7 @@ paths:
                         - $ref: ../models/Customer.v1.yaml
                         - $ref: ../models/Extras/ExistanceData.v1.yaml
       operationId: get-customers
-      parameters:
-        - schema:
-            type: string
-          in: header
-          description: ''
+      parameters: []
       description: Get single customer
     post:
       summary: Create Customer

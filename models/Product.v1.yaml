@@ -1,10 +1,13 @@
 title: Product
 type: object
+description: ''
 properties:
   id:
     type: integer
+    minimum: 0
   company_id:
-    type: string
+    type: integer
+    minimum: 0
   name:
     type: string
   price:
@@ -13,30 +16,41 @@ properties:
     type: string
   taxable:
     type:
-      - number
+      - integer
       - boolean
+    minimum: 0
+    maximum: 1
   shippable:
     type:
       - integer
       - boolean
+    minimum: 0
+    maximum: 1
   categories:
     type: array
     items:
       type: string
   weight:
     type: integer
+    minimum: 0
   height:
     type: integer
+    minimum: 0
   width:
     type: integer
+    minimum: 0
   depth:
     type: integer
+    minimum: 0
   created_at:
     type: string
+    format: date-time
   updated_at:
     type: string
+    format: date-time
   quantity:
     type: integer
+    minimum: 0
   billing_type:
     type: string
   billing_schedule:

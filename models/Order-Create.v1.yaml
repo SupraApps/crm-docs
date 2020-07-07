@@ -2,21 +2,34 @@ title: Order Create
 type: object
 x-tags:
   - Orders
+description: ''
 properties:
   customer_id:
     type: integer
+    minimum: 0
   company_id:
     type: integer
+    minimum: 0
   billing_address_id:
     type: integer
+    minimum: 0
   shipping_address_id:
     type: integer
+    minimum: 0
   payment_method_id:
     type: integer
+    minimum: 0
   discount_amount:
-    type:
-      - string
-      - number
+    type: integer
+    minimum: 0
+  shipping_service:
+    type: string
+  shipping_amount:
+    type: number
+    format: float
+    minimum: 0
+    example: 0
+    default: 0
   products:
     type: array
     items:
@@ -24,8 +37,10 @@ properties:
       properties:
         id:
           type: integer
+          minimum: 0
         quantity:
           type: integer
+          minimum: 0
         billing_type:
           type: string
         billing_schedule:

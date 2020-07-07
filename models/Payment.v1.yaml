@@ -4,24 +4,30 @@ description: Payment model
 properties:
   id:
     type: integer
+    minimum: 0
   company_id:
     type: integer
+    minimum: 0
   order_id:
     type: integer
+    minimum: 0
   payment_method_id:
     type: integer
+    minimum: 0
   payment_processor_id:
     type: integer
+    minimum: 0
   status:
     type: string
   billing_address:
-    type: string
-    description: Will only contain one address
+    $ref: ./Address.v1.yaml
   amount:
     type: string
   refunded_amount:
     type: string
   created_at:
     type: string
+    format: date-time
   deleted_at:
     type: string
+    format: date-time

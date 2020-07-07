@@ -3,17 +3,30 @@ type: object
 description: Order Model
 properties:
   id:
-    type: number
+    type: integer
+    minimum: 0
   status:
     type: string
   customer_id:
-    type: number
+    type: integer
+    minimum: 0
   company_id:
-    type: number
+    type: integer
+    minimum: 0
   payment_method_id:
-    type: string
+    type: integer
+    minimum: 0
   discount_amount:
+    type: number
+    minimum: 0
+  shipping_service:
     type: string
+  shipping_amount:
+    type: number
+    format: float
+    minimum: 0
+    example: 0
+    default: 0
   tax:
     type: string
   total:
@@ -32,5 +45,7 @@ properties:
       $ref: ./Shipment.v1.yaml
   created_at:
     type: string
+    format: date-time
   updated_at:
     type: string
+    format: date-time

@@ -1,12 +1,15 @@
-title: Shipment
 type: object
+title: Shipment
 properties:
   id:
     type: integer
+    minimum: 0
   order_id:
-    type: string
+    type: integer
+    minimum: 0
   shipment_processor_id:
-    type: string
+    type: integer
+    minimum: 0
   status:
     type: string
   line_items:
@@ -18,8 +21,7 @@ properties:
   tracking_number:
     type: string
   destination:
-    type: string
-    description: Will only contain one address
+    $ref: ./Address.v1.yaml
   created_at:
     type: string
   updated_at:
