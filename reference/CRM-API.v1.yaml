@@ -4236,6 +4236,79 @@ paths:
               $ref: ../models/Address.v1.yaml
       tags:
         - Addresses
+  '/orders/{id}/charge':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: Charge Order
+      operationId: post-orders-id-charge
+      responses:
+        '200':
+          description: OK
+        '500':
+          description: Internal Server Error
+      description: Charges order
+  /products:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: ../models/Product.v1.yaml
+                  meta:
+                    $ref: ../models/Index Pagination/Meta.v1.yaml
+                  links:
+                    $ref: ../models/Index Pagination/Links.v1.yaml
+      operationId: get-products
+      description: ''
+      parameters: []
+    post:
+      summary: ''
+      operationId: post-products
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+  '/products/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-products-id
+    put:
+      summary: ''
+      operationId: put-products-id
+      responses:
+        '200':
+          description: OK
+    delete:
+      summary: ''
+      operationId: delete-products-id
+      responses:
+        '200':
+          description: OK
 components:
   schemas: {}
   securitySchemes:

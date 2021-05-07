@@ -23,3 +23,11 @@ properties:
   primary_payment_method_id:
     type: number
     minimum: 0
+  ip_addresses:
+    type: array
+    items:
+      type: string
+  blacklisted:
+    type: boolean
+  meta:
+    type: object

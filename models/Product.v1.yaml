@@ -55,3 +55,4 @@ properties:
     type: string
   billing_schedule:
     type: string
+x-examples: {}
